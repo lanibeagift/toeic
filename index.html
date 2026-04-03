@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Be A Gift TOEIC 600</title>
+  <title>Be A Gift MASTER TOEIC </title>
   <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -39,7 +39,7 @@
       {w:"party",p:"n",ipa:"/ˈpɑːrti/",vi:"bên (hợp đồng)",en:"one of the groups in an agreement",ex:"Both parties agreed to extend the contract.",fam:{n:"party"},col:["third party","interested party"],syn:["side","participant","entity"],ant:[],trap:"'Party' in TOEIC = legal group, NOT celebration!",sc:"Mediate between two parties on delivery terms."},
       {w:"provision",p:"n",ipa:"/prəˈvɪʒən/",vi:"điều khoản",en:"a condition in a legal document",ex:"The provision requires a 30-day notice period.",fam:{n:"provision",v:"provide",adj:"provisional"},col:["make provision for","contractual provision"],syn:["clause","stipulation","condition"],ant:["removal"],trap:"'Provisional' = temporary. Part 5 word form.",sc:"Review key provisions of a lease."},
       {w:"resolve",p:"v",ipa:"/rɪˈzɑːlv/",vi:"giải quyết",en:"to find a solution to a problem",ex:"Managers resolved the conflict through negotiation.",fam:{v:"resolve",n:"resolution",adj:"resolute"},col:["resolve a dispute","conflict resolution"],syn:["settle","sort out","work out"],ant:["complicate","worsen"],trap:"'Resolution' = decision OR solving. Both in TOEIC.",sc:"Resolve a major client complaint."},
-      {w:"specific",p:"adj",ipa:"/spəˈsɪfɪk/",vi:"cụ thể",en:"clearly defined; particular",ex:"Please provide specific details about the schedule.",fam:{adj:"specific",n:"specification",v:"specify",adv:"specifically"},col:["specific requirements","be specific about"],syn:["particular","precise","definite"],ant:["general","vague"],trap:"Specification/specific/specify/specifically — all tested!",sc:"Ask your supplier for specific technical specs."},
+      {w:"specific",p:"adj",ipa:"/spəˈsɪfɪk/",vi:"c cụ thể",en:"clearly defined; particular",ex:"Please provide specific details about the schedule.",fam:{adj:"specific",n:"specification",v:"specify",adv:"specifically"},col:["specific requirements","be specific about"],syn:["particular","precise","definite"],ant:["general","vague"],trap:"Specification/specific/specify/specifically — all tested!",sc:"Ask your supplier for specific technical specs."},
     ];
 
     const W2=[
@@ -407,6 +407,8 @@
 
     function Learn({ w, lv, onSRS, wi, total, onRP }) {
       const [busy, setBusy] = useState(false);
+      
+      // States cho Level 1 & 3 (đã có từ trước)
       const [wTypeIn, setWTypeIn] = useState("");
       const [wTypeRes, setWTypeRes] = useState(null);
       const [wSpeakRes, setWSpeakRes] = useState(null);
@@ -416,15 +418,58 @@
       const [dictRes, setDictRes] = useState(null);
       const [sentSpeakRes, setSentSpeakRes] = useState(null);
 
+      // States MỚI cho phần Quiz Part 5 ở Level 2
+      const [p5Ans, setP5Ans] = useState(null);
+      const [p5Sub, setP5Sub] = useState(false);
+
       const c = LV[lv];
       const d = w[lv];
 
+      // Đặt lại (Reset) toàn bộ dữ liệu khi chuyển sang từ mới
       useEffect(() => { 
         setWTypeIn(""); setWTypeRes(null); setWSpeakRes(null);
         setTransIn(""); setTransRes(null); 
         setDictIn(""); setDictRes(null); setSentSpeakRes(null);
+        setP5Ans(null); setP5Sub(false); // Reset Mini Quiz
       }, [w ? w.id : null, lv]);
 
+      // Logic AI tự động tạo đề Quiz Part 5 từ Example Sentence
+      const p5Quiz = useMemo(() => {
+        if (lv !== "L650" || !w) return null;
+        
+        const ex = (w.L450 && w.L450.ex) || "";
+        const baseWord = w.word.split(' ')[0].substring(0, 4).toLowerCase(); 
+        const wordsInSentence = ex.split(/\b/);
+        
+        let targetInSentence = w.word; 
+        for (let word of wordsInSentence) {
+          if (word.toLowerCase().startsWith(baseWord) && word.length >= 4) {
+             targetInSentence = word;
+             break;
+          }
+        }
+
+        const qText = ex.replace(new RegExp(`\\b${targetInSentence}\\b`, 'gi'), "________");
+
+        let famOpts = (w.L650 && w.L650.fam) ? Object.values(w.L650.fam) : [];
+        let opts = Array.from(new Set([targetInSentence.toLowerCase(), w.word.toLowerCase(), ...famOpts.map(o => o.toLowerCase())]));
+
+        const dummyEndings = ["s", "ed", "ing", "tion", "ment", "ly", "er"];
+        while (opts.length < 4) {
+          let fakeWord = baseWord + dummyEndings[Math.floor(Math.random() * dummyEndings.length)];
+          if (!opts.includes(fakeWord)) opts.push(fakeWord);
+        }
+
+        opts = opts.sort(() => Math.random() - 0.5).slice(0, 4);
+        
+        if (!opts.includes(targetInSentence.toLowerCase())) {
+          opts[Math.floor(Math.random() * 4)] = targetInSentence.toLowerCase();
+        }
+
+        return { q: qText, opts, ans: targetInSentence.toLowerCase() };
+      }, [w ? w.id : null, lv]);
+
+      // Hàm xử lý thu âm (giữ nguyên)
       const handleSpeak = (setResState) => {
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
         if (!SpeechRecognition) {
@@ -463,6 +508,7 @@
 
       return (
         <div className="scr">
+          {/* Thanh tiến trình */}
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
             <div style={{ flex: 1, height: 4, background: "rgba(255,255,255,.04)", borderRadius: 2, overflow: "hidden" }}>
               <div style={{ height: "100%", width: `${(wi + 1) / total * 100}%`, background: c.g, borderRadius: 2, transition: "width .3s" }} />
@@ -473,6 +519,7 @@
           <div style={{ display: "inline-block", padding: "4px 12px", borderRadius: 14, fontSize: 11, fontWeight: 600, background: c.g, marginBottom: 10 }}>{c.ic} {c.lb}</div>
 
           <div className="card">
+            {/* Header từ vựng chung */}
             <div style={{ display: "flex", justifyContent: "space-between", paddingBottom: 12, borderBottom: "1px solid rgba(255,255,255,.04)", marginBottom: 12 }}>
               <div>
                 <h2 className="jm" style={{ fontSize: 26, fontWeight: 800, letterSpacing: -.5 }}>{w.word}</h2>
@@ -484,6 +531,7 @@
               <button className="btn" style={{ width: 40, height: 40, borderRadius: "50%", background: "rgba(108,92,231,.1)", border: "1px solid rgba(108,92,231,.2)", fontSize: 18 }} onClick={() => say(w.word)}>🔊</button>
             </div>
 
+            {/* ================= LEVEL 1: RECOGNITION ================= */}
             {lv === "L450" && (
               <div>
                 <div className="sec">
@@ -510,6 +558,7 @@
               </div>
             )}
 
+            {/* ================= LEVEL 2: APPLICATION ================= */}
             {lv === "L650" && (
               <div>
                 <div className="sec"><h4>🧩 Word Family</h4>
@@ -522,9 +571,55 @@
                     {d && d.col && d.col.map((cc, i) => <span key={i} className="chip" style={{ background: "rgba(0,184,148,.06)", border: "1px solid rgba(0,184,148,.12)", color: "#55EFC4", fontSize: 12, padding: "6px 12px" }}>{cc}</span>)}
                   </div>
                 </div>
+
+                {/* 🎯 TÍNH NĂNG MỚI: MINI QUIZ PART 5 */}
+                {p5Quiz && (
+                <div className="sec"><h4>🎯 Mini Quiz: TOEIC Part 5</h4>
+                  <div style={{ padding: 14, background: "rgba(255,255,255,.015)", borderRadius: 12, border: "1px solid rgba(255,255,255,.04)" }}>
+                    <p style={{ fontSize: 13, lineHeight: 1.55, marginBottom: 14, color: "#E0E0E8" }}>{p5Quiz.q}</p>
+                    
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+                      {p5Quiz.opts.map((opt, i) => {
+                        // Tính toán màu sắc cho nút dựa trên trạng thái đã trả lời hay chưa
+                        let bg = "rgba(255,255,255,.03)";
+                        let bd = "rgba(255,255,255,.06)";
+                        let color = "#E0E0E8";
+
+                        if (p5Sub) {
+                          if (opt === p5Quiz.ans) { 
+                            bg = "rgba(0,184,148,.12)"; bd = "#00B894"; color = "#00B894"; // Đáp án đúng -> Xanh lá
+                          } else if (p5Ans === opt) { 
+                            bg = "rgba(225,112,85,.12)"; bd = "#E17055"; color = "#E17055"; // Chọn sai -> Đỏ
+                          }
+                        } else if (p5Ans === opt) {
+                          bg = "rgba(108,92,231,.15)"; bd = "#6C5CE7"; color = "#A29BFE"; // Đang chọn -> Tím
+                        }
+
+                        return (
+                          <button key={i} className="btn" style={{ 
+                            padding: "10px", borderRadius: 8, background: bg, border: `1px solid ${bd}`, color: color, fontSize: 12, fontWeight: 600, transition: "all 0.2s" 
+                          }} onClick={() => !p5Sub && setP5Ans(opt)}>
+                            {String.fromCharCode(65 + i)}. {opt}
+                          </button>
+                        );
+                      })}
+                    </div>
+
+                    <button className="btn" style={{ 
+                      width: "100%", padding: 12, marginTop: 12, borderRadius: 8, 
+                      background: "linear-gradient(135deg,#6C5CE7,#A29BFE)", color: "#fff", fontSize: 12, fontWeight: 700, 
+                      opacity: p5Ans && !p5Sub ? 1 : 0.5 
+                    }} disabled={!p5Ans || p5Sub} onClick={() => setP5Sub(true)}>
+                      {p5Sub ? (p5Ans === p5Quiz.ans ? "🎉 Tuyệt vời! Bạn đã chọn đúng từ loại." : "❌ Sai mất rồi, cố gắng câu sau nhé!") : "Kiểm tra đáp án"}
+                    </button>
+                  </div>
+                </div>
+                )}
+                {/* KẾT THÚC TÍNH NĂNG MỚI */}
               </div>
             )}
 
+            {/* ================= LEVEL 3: MASTERY ================= */}
             {lv === "L800" && (
               <div>
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 16 }}>
@@ -557,6 +652,7 @@
             )}
           </div>
 
+          {/* Mức độ ghi nhớ - Hiển thị chung cho mọi cấp độ */}
           <div style={{ padding: 12, background: "rgba(8,8,12,.95)", backdropFilter: "blur(20px)", borderRadius: "16px 16px 0 0", border: "1px solid rgba(255,255,255,.03)", position: "fixed", bottom: 0, left: "50%", transform: "translateX(-50%)", width: "100%", maxWidth: 480, boxSizing: "border-box", zIndex: 50 }}>
             <div style={{ textAlign: "center", fontSize: 10, color: "#555", marginBottom: 6 }}>Mức độ ghi nhớ của bạn?</div>
             <div style={{ display: "flex", gap: 5 }}>
@@ -623,7 +719,7 @@
       );
     }
     
-    // ĐÂY LÀ "CÂU THẦN CHÚ" GIÚP WEB HIỂN THỊ LÊN MÀN HÌNH NÈ:
+    // Câu thần chú hiển thị Web
     const rootElement = document.getElementById("root");
     const root = ReactDOM.createRoot(rootElement);
     root.render(<App />);
