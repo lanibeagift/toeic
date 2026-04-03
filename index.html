@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Be A Gift MASTER TOEIC </title>
+  <title>Be A Gift TOEIC 600</title>
   <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -39,7 +39,7 @@
       {w:"party",p:"n",ipa:"/ˈpɑːrti/",vi:"bên (hợp đồng)",en:"one of the groups in an agreement",ex:"Both parties agreed to extend the contract.",fam:{n:"party"},col:["third party","interested party"],syn:["side","participant","entity"],ant:[],trap:"'Party' in TOEIC = legal group, NOT celebration!",sc:"Mediate between two parties on delivery terms."},
       {w:"provision",p:"n",ipa:"/prəˈvɪʒən/",vi:"điều khoản",en:"a condition in a legal document",ex:"The provision requires a 30-day notice period.",fam:{n:"provision",v:"provide",adj:"provisional"},col:["make provision for","contractual provision"],syn:["clause","stipulation","condition"],ant:["removal"],trap:"'Provisional' = temporary. Part 5 word form.",sc:"Review key provisions of a lease."},
       {w:"resolve",p:"v",ipa:"/rɪˈzɑːlv/",vi:"giải quyết",en:"to find a solution to a problem",ex:"Managers resolved the conflict through negotiation.",fam:{v:"resolve",n:"resolution",adj:"resolute"},col:["resolve a dispute","conflict resolution"],syn:["settle","sort out","work out"],ant:["complicate","worsen"],trap:"'Resolution' = decision OR solving. Both in TOEIC.",sc:"Resolve a major client complaint."},
-      {w:"specific",p:"adj",ipa:"/spəˈsɪfɪk/",vi:"c cụ thể",en:"clearly defined; particular",ex:"Please provide specific details about the schedule.",fam:{adj:"specific",n:"specification",v:"specify",adv:"specifically"},col:["specific requirements","be specific about"],syn:["particular","precise","definite"],ant:["general","vague"],trap:"Specification/specific/specify/specifically — all tested!",sc:"Ask your supplier for specific technical specs."},
+      {w:"specific",p:"adj",ipa:"/spəˈsɪfɪk/",vi:"cụ thể",en:"clearly defined; particular",ex:"Please provide specific details about the schedule.",fam:{adj:"specific",n:"specification",v:"specify",adv:"specifically"},col:["specific requirements","be specific about"],syn:["particular","precise","definite"],ant:["general","vague"],trap:"Specification/specific/specify/specifically — all tested!",sc:"Ask your supplier for specific technical specs."},
     ];
 
     const W2=[
@@ -111,6 +111,7 @@
     ];
 
     const PLACEHOLDER = Array.from({length:12},(_,i)=>({w:`word_${i+1}`,p:"—",ipa:"—",vi:"(chưa nhập)",en:"Coming soon",ex:"—",fam:{},col:[],syn:[],ant:[],trap:"—",sc:"—"}));
+    
     function getTopicWords(t) { return t.words || PLACEHOLDER; }
 
     function buildDB() {
@@ -207,12 +208,12 @@
             .sec{margin-bottom:16px}
             .sec h4{font-size:12px;font-weight:700;margin-bottom:6px}
           `}</style>
+          
           <header className="hdr">
             <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
               {scr !== "dash" && <button className="btn" style={{ background: "rgba(255,255,255,.05)", color: "#A29BFE", width: 30, height: 30, borderRadius: 8, fontSize: 14 }} onClick={() => scr === "learn" || scr === "rp" ? nav("topic") : nav("dash")}>←</button>}
               <span style={{ fontSize: 20 }}>🎁</span>
               <span className="logo-t">Be A Gift</span>
-              <span style={{ fontSize: 8, fontWeight: 700, padding: "2px 5px", background: "rgba(108,92,231,.2)", borderRadius: 4, color: "#A29BFE", letterSpacing: 1, marginLeft: 3 }}> MASTER TOEIC </span>
             </div>
             <div style={{ display: "flex", gap: 5 }}>
               <span className="pill">🔥{stats.streak}</span>
@@ -407,8 +408,6 @@
 
     function Learn({ w, lv, onSRS, wi, total, onRP }) {
       const [busy, setBusy] = useState(false);
-      
-      // States cho Level 1 & 3 (đã có từ trước)
       const [wTypeIn, setWTypeIn] = useState("");
       const [wTypeRes, setWTypeRes] = useState(null);
       const [wSpeakRes, setWSpeakRes] = useState(null);
@@ -417,27 +416,23 @@
       const [dictIn, setDictIn] = useState("");
       const [dictRes, setDictRes] = useState(null);
       const [sentSpeakRes, setSentSpeakRes] = useState(null);
-
-      // States MỚI cho phần Quiz Part 5 ở Level 2
       const [p5Ans, setP5Ans] = useState(null);
       const [p5Sub, setP5Sub] = useState(false);
 
       const c = LV[lv];
       const d = w[lv];
 
-      // Đặt lại (Reset) toàn bộ dữ liệu khi chuyển sang từ mới
       useEffect(() => { 
         setWTypeIn(""); setWTypeRes(null); setWSpeakRes(null);
         setTransIn(""); setTransRes(null); 
         setDictIn(""); setDictRes(null); setSentSpeakRes(null);
-        setP5Ans(null); setP5Sub(false); // Reset Mini Quiz
+        setP5Ans(null); setP5Sub(false); 
       }, [w ? w.id : null, lv]);
 
-      // Logic AI tự động tạo đề Quiz Part 5 từ Example Sentence
       const p5Quiz = useMemo(() => {
         if (lv !== "L650" || !w) return null;
         
-        const ex = (w.L450 && w.L450.ex) || "";
+        const ex = (w.L450 && w.L450.ex) ? w.L450.ex : "";
         const baseWord = w.word.split(' ')[0].substring(0, 4).toLowerCase(); 
         const wordsInSentence = ex.split(/\b/);
         
@@ -469,7 +464,6 @@
         return { q: qText, opts, ans: targetInSentence.toLowerCase() };
       }, [w ? w.id : null, lv]);
 
-      // Hàm xử lý thu âm (giữ nguyên)
       const handleSpeak = (setResState) => {
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
         if (!SpeechRecognition) {
@@ -508,7 +502,6 @@
 
       return (
         <div className="scr">
-          {/* Thanh tiến trình */}
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
             <div style={{ flex: 1, height: 4, background: "rgba(255,255,255,.04)", borderRadius: 2, overflow: "hidden" }}>
               <div style={{ height: "100%", width: `${(wi + 1) / total * 100}%`, background: c.g, borderRadius: 2, transition: "width .3s" }} />
@@ -519,7 +512,6 @@
           <div style={{ display: "inline-block", padding: "4px 12px", borderRadius: 14, fontSize: 11, fontWeight: 600, background: c.g, marginBottom: 10 }}>{c.ic} {c.lb}</div>
 
           <div className="card">
-            {/* Header từ vựng chung */}
             <div style={{ display: "flex", justifyContent: "space-between", paddingBottom: 12, borderBottom: "1px solid rgba(255,255,255,.04)", marginBottom: 12 }}>
               <div>
                 <h2 className="jm" style={{ fontSize: 26, fontWeight: 800, letterSpacing: -.5 }}>{w.word}</h2>
@@ -531,14 +523,13 @@
               <button className="btn" style={{ width: 40, height: 40, borderRadius: "50%", background: "rgba(108,92,231,.1)", border: "1px solid rgba(108,92,231,.2)", fontSize: 18 }} onClick={() => say(w.word)}>🔊</button>
             </div>
 
-            {/* ================= LEVEL 1: RECOGNITION ================= */}
             {lv === "L450" && (
               <div>
                 <div className="sec">
                   <div style={{ padding: 16, background: "rgba(0,184,148,.06)", borderRadius: 10, border: "1px solid rgba(0,184,148,.12)", textAlign: "center", marginBottom: 16 }}>
                     <div style={{ fontSize: 18, fontWeight: 700, color: "#00B894", marginBottom: 8 }}>🇻🇳 {d && d.vi}</div>
                     <div style={{ fontSize: 13, color: "#ccc", fontStyle: "italic", display: "flex", alignItems: "flex-start", justifyContent: "center", gap: 8 }}>
-                      <button className="btn" style={{ background: "rgba(108,92,231,.15)", borderRadius: "50%", width: 20, height: 20, fontSize: 10, flexShrink: 0, marginTop: 2 }} onClick={() => say((d && d.ex) || "")}>🔊</button>
+                      <button className="btn" style={{ background: "rgba(108,92,231,.15)", borderRadius: "50%", width: 20, height: 20, fontSize: 10, flexShrink: 0, marginTop: 2 }} onClick={() => say((d && d.ex) ? d.ex : "")}>🔊</button>
                       <span style={{ textAlign: "left" }}>"{d && d.ex}"</span>
                     </div>
                   </div>
@@ -558,7 +549,6 @@
               </div>
             )}
 
-            {/* ================= LEVEL 2: APPLICATION ================= */}
             {lv === "L650" && (
               <div>
                 <div className="sec"><h4>🧩 Word Family</h4>
@@ -572,7 +562,6 @@
                   </div>
                 </div>
 
-                {/* 🎯 TÍNH NĂNG MỚI: MINI QUIZ PART 5 */}
                 {p5Quiz && (
                 <div className="sec"><h4>🎯 Mini Quiz: TOEIC Part 5</h4>
                   <div style={{ padding: 14, background: "rgba(255,255,255,.015)", borderRadius: 12, border: "1px solid rgba(255,255,255,.04)" }}>
@@ -580,46 +569,34 @@
                     
                     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
                       {p5Quiz.opts.map((opt, i) => {
-                        // Tính toán màu sắc cho nút dựa trên trạng thái đã trả lời hay chưa
                         let bg = "rgba(255,255,255,.03)";
                         let bd = "rgba(255,255,255,.06)";
                         let color = "#E0E0E8";
 
                         if (p5Sub) {
-                          if (opt === p5Quiz.ans) { 
-                            bg = "rgba(0,184,148,.12)"; bd = "#00B894"; color = "#00B894"; // Đáp án đúng -> Xanh lá
-                          } else if (p5Ans === opt) { 
-                            bg = "rgba(225,112,85,.12)"; bd = "#E17055"; color = "#E17055"; // Chọn sai -> Đỏ
-                          }
+                          if (opt === p5Quiz.ans) { bg = "rgba(0,184,148,.12)"; bd = "#00B894"; color = "#00B894"; } 
+                          else if (p5Ans === opt) { bg = "rgba(225,112,85,.12)"; bd = "#E17055"; color = "#E17055"; }
                         } else if (p5Ans === opt) {
-                          bg = "rgba(108,92,231,.15)"; bd = "#6C5CE7"; color = "#A29BFE"; // Đang chọn -> Tím
+                          bg = "rgba(108,92,231,.15)"; bd = "#6C5CE7"; color = "#A29BFE";
                         }
 
                         return (
-                          <button key={i} className="btn" style={{ 
-                            padding: "10px", borderRadius: 8, background: bg, border: `1px solid ${bd}`, color: color, fontSize: 12, fontWeight: 600, transition: "all 0.2s" 
-                          }} onClick={() => !p5Sub && setP5Ans(opt)}>
+                          <button key={i} className="btn" style={{ padding: "10px", borderRadius: 8, background: bg, border: `1px solid ${bd}`, color: color, fontSize: 12, fontWeight: 600, transition: "all 0.2s" }} onClick={() => !p5Sub && setP5Ans(opt)}>
                             {String.fromCharCode(65 + i)}. {opt}
                           </button>
                         );
                       })}
                     </div>
 
-                    <button className="btn" style={{ 
-                      width: "100%", padding: 12, marginTop: 12, borderRadius: 8, 
-                      background: "linear-gradient(135deg,#6C5CE7,#A29BFE)", color: "#fff", fontSize: 12, fontWeight: 700, 
-                      opacity: p5Ans && !p5Sub ? 1 : 0.5 
-                    }} disabled={!p5Ans || p5Sub} onClick={() => setP5Sub(true)}>
-                      {p5Sub ? (p5Ans === p5Quiz.ans ? "🎉 Correct. Well done!" : "❌ Please note your mistake and try again") : "Kiểm tra đáp án"}
+                    <button className="btn" style={{ width: "100%", padding: 12, marginTop: 12, borderRadius: 8, background: "linear-gradient(135deg,#6C5CE7,#A29BFE)", color: "#fff", fontSize: 12, fontWeight: 700, opacity: p5Ans && !p5Sub ? 1 : 0.5 }} disabled={!p5Ans || p5Sub} onClick={() => setP5Sub(true)}>
+                      {p5Sub ? (p5Ans === p5Quiz.ans ? "🎉 Tuyệt vời! Bạn đã chọn đúng từ loại." : "❌ Sai mất rồi, cố gắng câu sau nhé!") : "Kiểm tra đáp án"}
                     </button>
                   </div>
                 </div>
                 )}
-                {/* KẾT THÚC TÍNH NĂNG MỚI */}
               </div>
             )}
 
-            {/* ================= LEVEL 3: MASTERY ================= */}
             {lv === "L800" && (
               <div>
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 16 }}>
@@ -634,11 +611,11 @@
                 <div className="sec"><h4>🇻🇳→🇬🇧 Translation</h4>
                   <div style={{ padding: 10, background: "rgba(255,255,255,.015)", borderRadius: 8, border: "1px solid rgba(255,255,255,.03)", marginBottom: 6 }}><p style={{ fontSize: 12, margin: "0 0 3px" }}>"{w.meta && w.meta.trVi}"</p><p style={{ fontSize: 10, color: "#666", margin: 0 }}>Dùng từ: <strong style={{ color: "#A29BFE" }}>{w.word}</strong></p></div>
                   <textarea className="ta" placeholder="Dịch sang tiếng Anh..." value={transIn} onChange={e => setTransIn(e.target.value)} rows={2} />
-                  <button className="btn" style={{ width: "100%", padding: 11, background: "rgba(255,255,255,.05)", border: "1px solid rgba(255,255,255,.1)", borderRadius: 8, color: "#fff", fontSize: 12, fontWeight: 600, marginTop: 5 }} onClick={() => { const has = transIn.toLowerCase().includes(w.word.toLowerCase()); setTransRes({ total: has ? 9 : 5, feedback: has ? `Tốt lắm! Bạn đã dùng đúng từ "${w.word}".` : `Nhớ dùng từ "${w.word}" nhé.`, corrected: (w.L450 && w.L450.ex) || "" }); }}>Kiểm tra</button>
+                  <button className="btn" style={{ width: "100%", padding: 11, background: "rgba(255,255,255,.05)", border: "1px solid rgba(255,255,255,.1)", borderRadius: 8, color: "#fff", fontSize: 12, fontWeight: 600, marginTop: 5 }} onClick={() => { const has = transIn.toLowerCase().includes(w.word.toLowerCase()); setTransRes({ total: has ? 9 : 5, feedback: has ? `Tốt lắm! Bạn đã dùng đúng từ "${w.word}".` : `Nhớ dùng từ "${w.word}" nhé.`, corrected: (w.L450 && w.L450.ex) ? w.L450.ex : "" }); }}>Kiểm tra</button>
                   {transRes && <div style={{ marginTop: 8, padding: 10, background: "rgba(255,255,255,.02)", border: "1px solid rgba(108,92,231,.12)", borderRadius: 8 }}><div style={{ fontSize: 11, color: "#bbb", marginBottom: 6 }}>{transRes.feedback}</div><div style={{ fontSize: 11, color: "#00B894" }}>✅ Câu mẫu: {transRes.corrected}</div></div>}
                 </div>
                 <div className="sec"><h4>🎧 Dictation</h4>
-                  <button className="btn" style={{ background: "rgba(108,92,231,.12)", border: "1px solid rgba(108,92,231,.2)", color: "#A29BFE", padding: "7px 16px", borderRadius: 8, fontSize: 11, fontWeight: 600 }} onClick={() => say((w.L450 && w.L450.ex) || "", 0.8)}>▶ Nghe câu mẫu</button>
+                  <button className="btn" style={{ background: "rgba(108,92,231,.12)", border: "1px solid rgba(108,92,231,.2)", color: "#A29BFE", padding: "7px 16px", borderRadius: 8, fontSize: 11, fontWeight: 600 }} onClick={() => say((w.L450 && w.L450.ex) ? w.L450.ex : "", 0.8)}>▶ Nghe câu mẫu</button>
                   <div style={{ display: "flex", gap: 5, marginTop: 6 }}><input className="inp" placeholder="Gõ lại câu bạn nghe được..." value={dictIn} onChange={e => setDictIn(e.target.value)} onKeyDown={e => { if (e.key === "Enter") { setDictRes({ acc: checkAccuracy(dictIn, w.L450 && w.L450.ex), tgt: w.L450 && w.L450.ex }); } }} /><button className="btn" style={{ padding: "9px 16px", background: "linear-gradient(135deg,#6C5CE7,#A29BFE)", borderRadius: 8, color: "#fff", fontWeight: 600, fontSize: 11 }} onClick={() => setDictRes({ acc: checkAccuracy(dictIn, w.L450 && w.L450.ex), tgt: w.L450 && w.L450.ex })}>Check</button></div>
                   {dictRes && <div style={{ marginTop: 6, padding: "8px 10px", borderRadius: 8, border: `1px solid ${dictRes.acc >= 80 ? "#00B894" : "#E17055"}`, background: "rgba(255,255,255,.015)" }}><span className="jm" style={{ fontSize: 13, fontWeight: 700, color: dictRes.acc >= 80 ? "#00B894" : "#E17055" }}>Độ chính xác: {dictRes.acc}%</span><div style={{ fontSize: 11, color: "#aaa", marginTop: 4 }}>Đáp án: {dictRes.tgt}</div></div>}
                 </div>
@@ -652,7 +629,6 @@
             )}
           </div>
 
-          {/* Mức độ ghi nhớ - Hiển thị chung cho mọi cấp độ */}
           <div style={{ padding: 12, background: "rgba(8,8,12,.95)", backdropFilter: "blur(20px)", borderRadius: "16px 16px 0 0", border: "1px solid rgba(255,255,255,.03)", position: "fixed", bottom: 0, left: "50%", transform: "translateX(-50%)", width: "100%", maxWidth: 480, boxSizing: "border-box", zIndex: 50 }}>
             <div style={{ textAlign: "center", fontSize: 10, color: "#555", marginBottom: 6 }}>Mức độ ghi nhớ của bạn?</div>
             <div style={{ display: "flex", gap: 5 }}>
@@ -673,35 +649,22 @@
       const [kwU, setKwU] = useState([]);
       const [pass, setPass] = useState(false);
       const [typ, setTyp] = useState(false);
-      const [turn, setTurn] = useState(0); // Theo dõi lượt hội thoại
+      const [turn, setTurn] = useState(0); 
       const end = useRef(null);
       
       const kws = useMemo(() => [w.word, ...((w.meta && w.meta.syn) || []).slice(0, 2)], [w.id]);
 
-      // Tạo kịch bản 4 lượt tự động dựa trên từ vựng hiện tại
       const scenario = useMemo(() => {
         const word = w.word;
-        const syn1 = kws[1] || "handle";
-        const syn2 = kws[2] || "manage";
-        const context = (w.L800 && w.L800.sc) || `We need to discuss the project.`;
+        const syn1 = kws[1] ? kws[1] : "handle";
+        const syn2 = kws[2] ? kws[2] : "manage";
+        const context = (w.L800 && w.L800.sc) ? w.L800.sc : `We need to discuss the project.`;
 
         return [
-          {
-            ai: `Hi! ${context} How do you think we should proceed?`,
-            hint: `I think we need to ${word} the situation carefully.`
-          },
-          {
-            ai: `That's a valid approach. How will this affect our timeline?`,
-            hint: `If we ${syn1} it well, there will be no delays.`
-          },
-          {
-            ai: `Good to hear. Do we have the necessary resources approved?`,
-            hint: `Yes, we can ${syn2} the tasks within our current budget.`
-          },
-          {
-            ai: `Excellent! Let's finalize the details and move forward.`,
-            hint: `Agreed. I will start drafting the final plan right away.`
-          }
+          { ai: `Hi! ${context} How do you think we should proceed?`, hint: `I think we need to ${word} the situation carefully.` },
+          { ai: `That's a valid approach. How will this affect our timeline?`, hint: `If we ${syn1} it well, there will be no delays.` },
+          { ai: `Good to hear. Do we have the necessary resources approved?`, hint: `Yes, we can ${syn2} the tasks within our current budget.` },
+          { ai: `Excellent! Let's finalize the details and move forward.`, hint: `Agreed. I will start drafting the final plan right away.` }
         ];
       }, [w.id, kws]);
 
@@ -721,7 +684,6 @@
         setMsgs(p => [...p, { r: "user", t: msg }]); 
         setInp("");
 
-        // Cập nhật từ khóa đã dùng
         const nu = kws.filter(k => msg.toLowerCase().includes(k.toLowerCase()));
         const au = [...new Set([...kwU, ...nu])]; 
         setKwU(au); 
@@ -774,13 +736,12 @@
             <div ref={end} />
           </div>
 
-          {/* Gợi ý cho người dùng */}
           {!isFinished && (
              <div style={{ padding: "8px 10px", background: "rgba(0,184,148,.06)", border: "1px dashed rgba(0,184,148,.2)", borderRadius: 10, marginBottom: 8 }}>
                <div style={{ fontSize: 10, color: "#00B894", fontWeight: 700, marginBottom: 2 }}>💡 Gợi ý trả lời:</div>
                <div style={{ fontSize: 12, color: "#55EFC4", fontStyle: "italic", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                 <span style={{flex: 1, paddingRight: 8}}>"{scenario[turn]?.hint}"</span>
-                 <button className="btn" style={{ fontSize: 10, padding: "4px 8px", background: "rgba(0,184,148,.15)", color: "#00B894", borderRadius: 6, fontWeight: 700, flexShrink: 0 }} onClick={() => setInp(scenario[turn]?.hint)}>Dùng</button>
+                 <span style={{flex: 1, paddingRight: 8}}>"{scenario[turn] ? scenario[turn].hint : ""}"</span>
+                 <button className="btn" style={{ fontSize: 10, padding: "4px 8px", background: "rgba(0,184,148,.15)", color: "#00B894", borderRadius: 6, fontWeight: 700, flexShrink: 0 }} onClick={() => setInp(scenario[turn] ? scenario[turn].hint : "")}>Dùng</button>
                </div>
              </div>
           )}
@@ -793,58 +754,7 @@
         </div>
       );
     }
-      const [msgs, setMsgs] = useState([]);
-      const [inp, setInp] = useState("");
-      const [kwU, setKwU] = useState([]);
-      const [pass, setPass] = useState(false);
-      const [typ, setTyp] = useState(false);
-      const end = useRef(null);
-      const kws = useMemo(() => [w.word, ...((w.meta && w.meta.syn) || []).slice(0, 2)], [w.id]);
-
-      useEffect(() => { setMsgs([{ r: "ai", t: `Hi! ${(w.L800 && w.L800.sc) || "About our project..."} How should we proceed?` }]); setKwU([]); setPass(false); }, [w.id]);
-      useEffect(() => { end.current && end.current.scrollIntoView({ behavior: "smooth" }); }, [msgs]);
-
-      const send = async () => {
-        if (!inp.trim()) return;
-        const msg = inp; setMsgs(p => [...p, { r: "user", t: msg }]); setInp("");
-        const nu = kws.filter(k => msg.toLowerCase().includes(k.toLowerCase()));
-        const au = [...new Set([...kwU, ...nu])]; setKwU(au); if (au.length >= 3) setPass(true);
-        setTyp(true); await new Promise(r => setTimeout(r, 900 + Math.random() * 700));
-        const tn = msgs.filter(m => m.r === "ai").length;
-        const rs = [`Good point. How does this affect our ${kws[1] || "timeline"}?`, `I agree we should ${w.word} this. Next step?`, `Let me check the ${kws[2] || "budget"} implications.`, `If we ${w.word} well, both sides benefit.`, `Great talk! I'll send a summary. ${au.length >= 3 ? "🎉" : ""}`];
-        setMsgs(p => [...p, { r: "ai", t: rs[Math.min(tn, rs.length - 1)] }]); setTyp(false);
-      };
-
-      return (
-        <div className="scr">
-          <div style={{ background: "linear-gradient(135deg,#E17055,#FDCB6E)", borderRadius: 14, padding: "14px 16px", marginBottom: 8 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 8, color: "#fff" }}><span style={{ fontSize: 24 }}>🎭</span><div><div style={{ fontSize: 14, fontWeight: 700 }}>Business Roleplay</div><div style={{ fontSize: 10, opacity: .8 }}>Dùng {kws.length} từ khóa để qua bài</div></div></div>
-          </div>
-          <div style={{ padding: "8px 12px", background: "rgba(255,255,255,.02)", borderRadius: 10, border: "1px solid rgba(255,255,255,.04)", marginBottom: 8 }}>
-            <div style={{ fontSize: 9, color: "#555", marginBottom: 4 }}>Từ khóa mục tiêu:</div>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>{kws.map((k, i) => <span key={i} style={{ padding: "3px 8px", borderRadius: 12, fontSize: 10, border: "1px solid", background: kwU.includes(k) ? "rgba(0,184,148,.12)" : "rgba(255,255,255,.02)", borderColor: kwU.includes(k) ? "#00B894" : "rgba(255,255,255,.08)", color: kwU.includes(k) ? "#55EFC4" : "#777", textDecoration: kwU.includes(k) ? "line-through" : "none" }}>{kwU.includes(k) ? "✅" : "○"} {k}</span>)}</div>
-            {pass && <div style={{ marginTop: 6, padding: 5, background: "rgba(0,184,148,.12)", borderRadius: 6, textAlign: "center", fontSize: 11, fontWeight: 700, color: "#00B894" }}>🎉 XUẤT SẮC!</div>}
-          </div>
-          <div style={{ maxHeight: "40vh", overflowY: "auto", display: "flex", flexDirection: "column", gap: 6, marginBottom: 8 }}>
-            {msgs.map((m, i) => (
-              <div key={i} style={{ display: "flex", justifyContent: m.r === "user" ? "flex-end" : "flex-start", gap: 5, alignItems: "flex-end" }}>
-                {m.r === "ai" && <div style={{ width: 28, height: 28, borderRadius: "50%", background: "rgba(108,92,231,.12)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, flexShrink: 0 }}>🤖</div>}
-                <div style={{ maxWidth: "78%", padding: "9px 13px", fontSize: 12, lineHeight: 1.45, color: "#E0E0E8", background: m.r === "user" ? "linear-gradient(135deg,#6C5CE7,#A29BFE)" : "rgba(255,255,255,.05)", borderRadius: m.r === "user" ? "14px 14px 3px 14px" : "14px 14px 14px 3px" }}>{m.t}</div>
-              </div>
-            ))}
-            {typ && <div style={{ display: "flex", gap: 5, alignItems: "flex-end" }}><div style={{ width: 28, height: 28, borderRadius: "50%", background: "rgba(108,92,231,.12)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, flexShrink: 0 }}>🤖</div><div style={{ padding: "9px 13px", background: "rgba(255,255,255,.05)", borderRadius: "14px 14px 14px 3px" }}><span style={{ animation: "pulse 1s infinite", color: "#555" }}>● ● ●</span></div></div>}
-            <div ref={end} />
-          </div>
-          <div style={{ display: "flex", gap: 5 }}>
-            <input className="inp" style={{ borderRadius: 20, padding: "10px 14px" }} placeholder="Nhập tin nhắn..." value={inp} onChange={e => setInp(e.target.value)} onKeyDown={e => e.key === "Enter" && send()} />
-            <button className="btn" style={{ width: 40, height: 40, borderRadius: "50%", background: "linear-gradient(135deg,#6C5CE7,#A29BFE)", color: "#fff", fontSize: 14, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }} onClick={send}>➤</button>
-          </div>
-          <button className="btn" style={{ width: "100%", padding: 8, background: "rgba(255,255,255,.02)", border: "1px solid rgba(255,255,255,.04)", borderRadius: 8, color: "#666", fontSize: 11, marginTop: 8 }} onClick={onBack}>← Quay lại</button>
-        </div>
-      );
-    }
     
-    // Câu thần chú hiển thị Web
     const rootElement = document.getElementById("root");
     const root = ReactDOM.createRoot(rootElement);
     root.render(<App />);
