@@ -610,7 +610,7 @@
                       background: "linear-gradient(135deg,#6C5CE7,#A29BFE)", color: "#fff", fontSize: 12, fontWeight: 700, 
                       opacity: p5Ans && !p5Sub ? 1 : 0.5 
                     }} disabled={!p5Ans || p5Sub} onClick={() => setP5Sub(true)}>
-                      {p5Sub ? (p5Ans === p5Quiz.ans ? "🎉 Tuyệt vời! Bạn đã chọn đúng từ loại." : "❌ Sai mất rồi, cố gắng câu sau nhé!") : "Kiểm tra đáp án"}
+                      {p5Sub ? (p5Ans === p5Quiz.ans ? "🎉 Correct. Well done!" : "❌ Please note your mistake and try again") : "Kiểm tra đáp án"}
                     </button>
                   </div>
                 </div>
