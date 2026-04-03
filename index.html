@@ -10,10 +10,8 @@
 </head>
 <body style="margin: 0; background-color: #08080C;">
   <div id="root"></div>
-
   <script type="text/babel">
     const { useState, useEffect, useCallback, useRef, useMemo } = React;
-
     const CAT = [
       {id:"C01",n:"I",name:"Corporate Development",vi:"Phát triển doanh nghiệp",c:"#6C5CE7",ic:"🏢"},
       {id:"C02",n:"II",name:"Office Issues",vi:"Vấn đề văn phòng",c:"#0984E3",ic:"🖥️"},
@@ -26,7 +24,6 @@
       {id:"C09",n:"IX",name:"Travel",vi:"Du lịch",c:"#74B9FF",ic:"✈️"},
       {id:"C10",n:"X",name:"Dining Out",vi:"Ăn uống",c:"#FF7675",ic:"🍽️"},
     ];
-
     const W1=[
       {w:"abide by",p:"v",ipa:"/əˈbaɪd baɪ/",vi:"tuân thủ",en:"to accept and act according to a rule",ex:"All employees must abide by the safety regulations.",fam:{v:"abide",n:"abidance",adj:"abiding"},col:["abide by the rules","abide by the terms"],syn:["comply with","adhere to","follow"],ant:["disobey","break","violate"],trap:"'Abide by' requires 'by'. Part 5 tests 'abide to'.",sc:"Remind a client to abide by the signed agreement."},
       {w:"agreement",p:"n",ipa:"/əˈɡriːmənt/",vi:"thỏa thuận",en:"an arrangement between two or more parties",ex:"Both parties signed the agreement before the deadline.",fam:{n:"agreement",v:"agree",adj:"agreeable"},col:["reach an agreement","sign an agreement"],syn:["contract","deal","accord"],ant:["disagreement","discord"],trap:"'Agreement' vs 'contract' — agreement is broader.",sc:"Finalize a service agreement with a new vendor."},
@@ -41,7 +38,6 @@
       {w:"resolve",p:"v",ipa:"/rɪˈzɑːlv/",vi:"giải quyết",en:"to find a solution to a problem",ex:"Managers resolved the conflict through negotiation.",fam:{v:"resolve",n:"resolution",adj:"resolute"},col:["resolve a dispute","conflict resolution"],syn:["settle","sort out","work out"],ant:["complicate","worsen"],trap:"'Resolution' = decision OR solving. Both in TOEIC.",sc:"Resolve a major client complaint."},
       {w:"specific",p:"adj",ipa:"/spəˈsɪfɪk/",vi:"cụ thể",en:"clearly defined; particular",ex:"Please provide specific details about the schedule.",fam:{adj:"specific",n:"specification",v:"specify",adv:"specifically"},col:["specific requirements","be specific about"],syn:["particular","precise","definite"],ant:["general","vague"],trap:"Specification/specific/specify/specifically — all tested!",sc:"Ask your supplier for specific technical specs."},
     ];
-
     const W2=[
       {w:"attract",p:"v",ipa:"/əˈtrækt/",vi:"thu hút",en:"to cause someone to be interested",ex:"The campaign attracted thousands of customers.",fam:{v:"attract",n:"attraction",adj:"attractive"},col:["attract customers","attract attention"],syn:["draw","appeal to","lure"],ant:["repel","deter"],trap:"'Attractive' vs 'attracted' — Part 5 word form.",sc:"Create a strategy to attract millennials."},
       {w:"compare",p:"v",ipa:"/kəmˈper/",vi:"so sánh",en:"to examine differences and similarities",ex:"Consumers often compare prices before buying.",fam:{v:"compare",n:"comparison",adj:"comparable"},col:["compare prices","in comparison with"],syn:["contrast","evaluate","match"],ant:[],trap:"'Comparable' vs 'comparative' — different meaning.",sc:"Compare your product with two competitors."},
@@ -56,7 +52,6 @@
       {w:"productive",p:"adj",ipa:"/prəˈdʌktɪv/",vi:"năng suất",en:"achieving a lot; working well",ex:"The team had a very productive quarter.",fam:{adj:"productive",n:"productivity",v:"produce"},col:["productive meeting","increase productivity"],syn:["efficient","effective","fruitful"],ant:["unproductive","lazy","idle"],trap:"Product/production/productivity — all tested.",sc:"Show how productive the campaigns were."},
       {w:"satisfaction",p:"n",ipa:"/ˌsætɪsˈfækʃən/",vi:"sự hài lòng",en:"good feeling from getting what you wanted",ex:"Customer satisfaction increased by 20%.",fam:{n:"satisfaction",v:"satisfy",adj:"satisfactory/satisfying"},col:["customer satisfaction","satisfaction survey"],syn:["contentment","fulfillment"],ant:["dissatisfaction","displeasure"],trap:"Satisfied vs satisfying vs satisfactory. Triple trap!",sc:"Design a customer satisfaction survey."},
     ];
-
     const TOPICS_META = [
       {id:"t01",cat:"C01",n:1,name:"Contracts",vi:"Hợp đồng",ic:"📝",c:"#6C5CE7",words:W1},
       {id:"t02",cat:"C01",n:2,name:"Marketing",vi:"Tiếp thị",ic:"📢",c:"#A29BFE",words:W2},
@@ -109,11 +104,8 @@
       {id:"t49",cat:"C10",n:4,name:"Cooking as a Career",vi:"Nghề nấu ăn",ic:"👨‍🍳",c:"#81ECEC",words:null},
       {id:"t50",cat:"C10",n:5,name:"Events",vi:"Sự kiện",ic:"🎪",c:"#DFE6E9",words:null},
     ];
-
     const PLACEHOLDER = Array.from({length:12},(_,i)=>({w:`word_${i+1}`,p:"—",ipa:"—",vi:"(chưa nhập)",en:"Coming soon",ex:"—",fam:{},col:[],syn:[],ant:[],trap:"—",sc:"—"}));
-    
     function getTopicWords(t) { return t.words || PLACEHOLDER; }
-
     function buildDB() {
       const db = [];
       TOPICS_META.forEach(t => {
@@ -130,7 +122,6 @@
       });
       return db;
     }
-
     function sm2(srs, q) {
       const quality = [0,2,3,5][q];
       let { iv, ef, rep } = srs;
@@ -140,7 +131,6 @@
       if (ef < 1.3) ef = 1.3;
       return { iv, ef: Math.round(ef*100)/100, rep, nr: Date.now() + iv*86400000 };
     }
-
     function say(t, r=0.85) {
       if (typeof window !== "undefined" && window.speechSynthesis) {
         window.speechSynthesis.cancel();
@@ -148,13 +138,11 @@
         window.speechSynthesis.speak(u);
       }
     }
-
     const LV = {
       L450: { lb:"Level 1: Nhận biết", tg:"450+", c:"#00B894", g:"linear-gradient(135deg,#00B894,#00CEC9)", ic:"👁️" },
       L650: { lb:"Level 2: Ứng dụng", tg:"650+", c:"#6C5CE7", g:"linear-gradient(135deg,#6C5CE7,#A29BFE)", ic:"🔧" },
       L800: { lb:"Level 3: Làm chủ", tg:"800+", c:"#E17055", g:"linear-gradient(135deg,#E17055,#FDCB6E)", ic:"🏆" },
     };
-
     function App() {
       const [words, setWords] = useState(() => buildDB());
       const [scr, setScr] = useState("dash");
@@ -162,11 +150,9 @@
       const [lv, setLv] = useState("L450");
       const [wi, setWi] = useState(0);
       const [stats, setStats] = useState({ streak: 5, today: 0, total: 0 });
-
       const topic = TOPICS_META.find(t => t.id === tid);
       const tw = useMemo(() => words.filter(w => w.tid === tid), [words, tid]);
       const cw = tw[wi] || tw[0];
-
       const doSRS = useCallback(q => {
         setWords(p => { 
           const u = [...p]; 
@@ -178,9 +164,7 @@
         setStats(s => ({ ...s, today: s.today + 1, total: s.total + 1 }));
         if (wi < tw.length - 1) setWi(i => i + 1); else { setScr("topic"); setWi(0); }
       }, [cw, wi, tw.length]);
-
       const nav = (s, id) => { if (s === "dash") { setTid(null); setWi(0); } if (id !== undefined) { setTid(id); setWi(0); } setScr(s); };
-
       return (
         <div className="app">
           <style>{`
@@ -208,7 +192,6 @@
             .sec{margin-bottom:16px}
             .sec h4{font-size:12px;font-weight:700;margin-bottom:6px}
           `}</style>
-          
           <header className="hdr">
             <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
               {scr !== "dash" && <button className="btn" style={{ background: "rgba(255,255,255,.05)", color: "#A29BFE", width: 30, height: 30, borderRadius: 8, fontSize: 14 }} onClick={() => scr === "learn" || scr === "rp" ? nav("topic") : nav("dash")}>←</button>}
@@ -220,7 +203,6 @@
               <span className="pill" style={{ background: "rgba(108,92,231,.12)", color: "#A29BFE" }}>📚{stats.today}</span>
             </div>
           </header>
-
           {scr === "dash" && <Dash words={words} lv={lv} setLv={setLv} onT={id => nav("topic", id)} stats={stats} />}
           {scr === "topic" && topic && <TopicV topic={topic} tw={tw} lv={lv} setLv={setLv} onStart={() => { setWi(0); nav("learn"); }} />}
           {scr === "learn" && cw && <Learn w={cw} lv={lv} onSRS={doSRS} wi={wi} total={tw.length} onRP={() => nav("rp")} />}
@@ -228,7 +210,6 @@
         </div>
       );
     }
-
     function Dash({ words, lv, setLv, onT, stats }) {
       const [q, setQ] = useState("");
       const [expCat, setExpCat] = useState("C01");
@@ -237,8 +218,7 @@
       const due = words.filter(w => w.srs.nr <= Date.now()).length;
       const mastered = words.filter(w => w.srs.iv >= 21).length;
       const filtered = q ? TOPICS_META.filter(t => (t.name + t.vi).toLowerCase().includes(q.toLowerCase())) : TOPICS_META;
-      const grouped = CAT.map(cat => ({ ...cat, topics: filtered.filter(t => t.cat === cat.id) })).filter(g => g.topics.length > 0);
-
+      const grouped = CAT.map(cat => ({ ...cat, topics: filtered.filter(t => t.cat === cat.id) })).filter(g => g.topics.length > 0)
       return (
         <div className="scr">
           <div className="hero" style={{ background: c.g }}>
@@ -262,7 +242,6 @@
               ))}
             </div>
           </div>
-
           <div style={{ display: "flex", gap: 5, marginBottom: 12 }}>
             {Object.entries(LV).map(([k, v]) => (
               <button key={k} className="btn" style={{ flex: 1, padding: "8px 4px", borderRadius: 10, fontSize: 11, textAlign: "center", background: lv === k ? v.g : "rgba(255,255,255,.02)", color: lv === k ? "#fff" : "#666", border: lv === k ? "none" : "1px solid rgba(255,255,255,.05)", fontWeight: lv === k ? 700 : 400 }} onClick={() => setLv(k)}>
@@ -270,19 +249,16 @@
               </button>
             ))}
           </div>
-
           <div style={{ display: "flex", alignItems: "center", gap: 6, background: "rgba(255,255,255,.02)", borderRadius: 10, padding: "8px 12px", marginBottom: 12, border: "1px solid rgba(255,255,255,.03)" }}>
             <span>🔍</span>
             <input className="inp" style={{ border: "none", background: "transparent" }} placeholder="Tìm chủ đề..." value={q} onChange={e => setQ(e.target.value)} />
           </div>
-
           <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
             {grouped.map(cat => {
               const isOpen = !!q || expCat === cat.id;
               const cws = words.filter(w => w.cid === cat.id);
               const cl = cws.filter(w => w.srs.rep > 0).length;
               const cp = Math.round(cl / (cat.topics.length * 12) * 100);
-
               return (
                 <div key={cat.id} style={{ background: "rgba(255,255,255,.015)", borderRadius: 12, border: "1px solid rgba(255,255,255,.04)", overflow: "hidden" }}>
                   <button className="btn" style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "11px 14px", background: "transparent", color: "#E0E0E8", textAlign: "left" }} onClick={() => setExpCat(isOpen && !q ? null : cat.id)}>
@@ -303,7 +279,6 @@
                       <span style={{ fontSize: 11, color: "#444", transform: isOpen ? "rotate(90deg)" : "rotate(0)", transition: "transform .2s" }}>▸</span>
                     </div>
                   </button>
-
                   {isOpen && (
                     <div style={{ padding: "0 8px 8px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 5 }}>
                       {cat.topics.map((t, i) => {
@@ -340,12 +315,10 @@
         </div>
       );
     }
-
     function TopicV({ topic, tw, lv, setLv, onStart }) {
       const c = LV[lv];
       const cat = CAT.find(cc => cc.id === topic.cat);
       const hasData = !!topic.words;
-
       return (
         <div className="scr">
           <div className="hero" style={{ background: c.g, textAlign: "center" }}>
@@ -361,14 +334,12 @@
               ))}
             </div>
           </div>
-
           {!hasData && (
             <div style={{ padding: 16, background: "rgba(253,203,110,.06)", borderRadius: 10, border: "1px solid rgba(253,203,110,.12)", marginBottom: 10, textAlign: "center" }}>
               <div style={{ fontSize: 24, marginBottom: 6 }}>🔜</div>
               <div style={{ fontSize: 12, fontWeight: 600, color: "#FFEAA7" }}>Nội dung đang được cập nhật</div>
             </div>
           )}
-
           <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
             {tw.map((w, i) => (
               <div key={w.id} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "8px 12px", background: "rgba(255,255,255,.015)", borderRadius: 8, border: "1px solid rgba(255,255,255,.03)" }}>
@@ -387,7 +358,6 @@
               </div>
             ))}
           </div>
-
           {hasData && (
             <div style={{ position: "fixed", bottom: 14, left: "50%", transform: "translateX(-50%)", width: "calc(100% - 28px)", maxWidth: 440, zIndex: 50 }}>
               <button className="btn" style={{ width: "100%", padding: 13, borderRadius: 12, color: "#fff", fontSize: 14, fontWeight: 700, background: c.g, boxShadow: "0 6px 24px rgba(0,0,0,.35)" }} onClick={onStart}>
@@ -398,14 +368,12 @@
         </div>
       );
     }
-
     function SRSBadge({ srs }) {
       const isDue = srs.nr <= Date.now();
       const label = srs.rep === 0 ? "New" : srs.iv >= 21 ? "✓" : isDue ? "Due" : `${srs.iv}d`;
       const bg = srs.rep === 0 ? "#555" : srs.iv >= 21 ? "#00B894" : isDue ? "#E17055" : "#6C5CE7";
       return <span style={{ fontSize: 8, padding: "2px 5px", borderRadius: 4, background: bg, color: "#fff", fontWeight: 600 }}>{label}</span>;
     }
-
     function Learn({ w, lv, onSRS, wi, total, onRP }) {
       const [busy, setBusy] = useState(false);
       const [wTypeIn, setWTypeIn] = useState("");
@@ -418,20 +386,16 @@
       const [sentSpeakRes, setSentSpeakRes] = useState(null);
       const [p5Ans, setP5Ans] = useState(null);
       const [p5Sub, setP5Sub] = useState(false);
-
       const c = LV[lv];
       const d = w[lv];
-
       useEffect(() => { 
         setWTypeIn(""); setWTypeRes(null); setWSpeakRes(null);
         setTransIn(""); setTransRes(null); 
         setDictIn(""); setDictRes(null); setSentSpeakRes(null);
         setP5Ans(null); setP5Sub(false); 
       }, [w ? w.id : null, lv]);
-
       const p5Quiz = useMemo(() => {
         if (lv !== "L650" || !w) return null;
-        
         const ex = (w.L450 && w.L450.ex) ? w.L450.ex : "";
         const baseWord = w.word.split(' ')[0].substring(0, 4).toLowerCase(); 
         const wordsInSentence = ex.split(/\b/);
@@ -443,27 +407,20 @@
              break;
           }
         }
-
         const qText = ex.replace(new RegExp(`\\b${targetInSentence}\\b`, 'gi'), "________");
-
         let famOpts = (w.L650 && w.L650.fam) ? Object.values(w.L650.fam) : [];
         let opts = Array.from(new Set([targetInSentence.toLowerCase(), w.word.toLowerCase(), ...famOpts.map(o => o.toLowerCase())]));
-
         const dummyEndings = ["s", "ed", "ing", "tion", "ment", "ly", "er"];
         while (opts.length < 4) {
           let fakeWord = baseWord + dummyEndings[Math.floor(Math.random() * dummyEndings.length)];
           if (!opts.includes(fakeWord)) opts.push(fakeWord);
         }
-
         opts = opts.sort(() => Math.random() - 0.5).slice(0, 4);
-        
         if (!opts.includes(targetInSentence.toLowerCase())) {
           opts[Math.floor(Math.random() * 4)] = targetInSentence.toLowerCase();
         }
-
         return { q: qText, opts, ans: targetInSentence.toLowerCase() };
       }, [w ? w.id : null, lv]);
-
       const handleSpeak = (setResState) => {
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
         if (!SpeechRecognition) {
@@ -472,25 +429,20 @@
         }
         const recognition = new SpeechRecognition();
         recognition.lang = 'en-US';
-        recognition.interimResults = false;
-        
+        recognition.interimResults = false; 
         setBusy(true);
-        recognition.start();
-
+      recognition.start();
         recognition.onresult = (event) => {
           const transcript = event.results[0][0].transcript;
           setResState(transcript);
           setBusy(false);
         };
-
         recognition.onerror = () => {
           alert("Không nghe được âm thanh, vui lòng thử lại.");
           setBusy(false);
         };
-
         recognition.onend = () => setBusy(false);
       };
-
       const checkAccuracy = (input, target) => {
         if (!input || !target) return 0;
         const t = target.toLowerCase().replace(/[.,!?]/g, '').split(/\s+/);
@@ -499,7 +451,6 @@
         t.forEach((x, i) => { if (inp[i] === x) m++; });
         return Math.round((m / t.length) * 100);
       };
-
       return (
         <div className="scr">
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
@@ -508,9 +459,7 @@
             </div>
             <span className="jm" style={{ fontSize: 10, color: "#555" }}>{wi + 1}/{total}</span>
           </div>
-
           <div style={{ display: "inline-block", padding: "4px 12px", borderRadius: 14, fontSize: 11, fontWeight: 600, background: c.g, marginBottom: 10 }}>{c.ic} {c.lb}</div>
-
           <div className="card">
             <div style={{ display: "flex", justifyContent: "space-between", paddingBottom: 12, borderBottom: "1px solid rgba(255,255,255,.04)", marginBottom: 12 }}>
               <div>
@@ -522,7 +471,6 @@
               </div>
               <button className="btn" style={{ width: 40, height: 40, borderRadius: "50%", background: "rgba(108,92,231,.1)", border: "1px solid rgba(108,92,231,.2)", fontSize: 18 }} onClick={() => say(w.word)}>🔊</button>
             </div>
-
             {lv === "L450" && (
               <div>
                 <div className="sec">
@@ -548,7 +496,6 @@
                 </div>
               </div>
             )}
-
             {lv === "L650" && (
               <div>
                 <div className="sec"><h4>🧩 Word Family</h4>
@@ -561,25 +508,21 @@
                     {d && d.col && d.col.map((cc, i) => <span key={i} className="chip" style={{ background: "rgba(0,184,148,.06)", border: "1px solid rgba(0,184,148,.12)", color: "#55EFC4", fontSize: 12, padding: "6px 12px" }}>{cc}</span>)}
                   </div>
                 </div>
-
                 {p5Quiz && (
                 <div className="sec"><h4>🎯 Mini Quiz: TOEIC Part 5</h4>
                   <div style={{ padding: 14, background: "rgba(255,255,255,.015)", borderRadius: 12, border: "1px solid rgba(255,255,255,.04)" }}>
-                    <p style={{ fontSize: 13, lineHeight: 1.55, marginBottom: 14, color: "#E0E0E8" }}>{p5Quiz.q}</p>
-                    
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+                    <p style={{ fontSize: 13, lineHeight: 1.55, marginBottom: 14, color: "#E0E0E8" }}>{p5Quiz.q}</p>            
+                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
                       {p5Quiz.opts.map((opt, i) => {
                         let bg = "rgba(255,255,255,.03)";
                         let bd = "rgba(255,255,255,.06)";
                         let color = "#E0E0E8";
-
                         if (p5Sub) {
                           if (opt === p5Quiz.ans) { bg = "rgba(0,184,148,.12)"; bd = "#00B894"; color = "#00B894"; } 
                           else if (p5Ans === opt) { bg = "rgba(225,112,85,.12)"; bd = "#E17055"; color = "#E17055"; }
                         } else if (p5Ans === opt) {
                           bg = "rgba(108,92,231,.15)"; bd = "#6C5CE7"; color = "#A29BFE";
                         }
-
                         return (
                           <button key={i} className="btn" style={{ padding: "10px", borderRadius: 8, background: bg, border: `1px solid ${bd}`, color: color, fontSize: 12, fontWeight: 600, transition: "all 0.2s" }} onClick={() => !p5Sub && setP5Ans(opt)}>
                             {String.fromCharCode(65 + i)}. {opt}
@@ -587,7 +530,6 @@
                         );
                       })}
                     </div>
-
                     <button className="btn" style={{ width: "100%", padding: 12, marginTop: 12, borderRadius: 8, background: "linear-gradient(135deg,#6C5CE7,#A29BFE)", color: "#fff", fontSize: 12, fontWeight: 700, opacity: p5Ans && !p5Sub ? 1 : 0.5 }} disabled={!p5Ans || p5Sub} onClick={() => setP5Sub(true)}>
                       {p5Sub ? (p5Ans === p5Quiz.ans ? "🎉 Tuyệt vời! Bạn đã chọn đúng từ loại." : "❌ Sai mất rồi, cố gắng câu sau nhé!") : "Kiểm tra đáp án"}
                     </button>
@@ -596,7 +538,6 @@
                 )}
               </div>
             )}
-
             {lv === "L800" && (
               <div>
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 16 }}>
@@ -628,7 +569,6 @@
               </div>
             )}
           </div>
-
           <div style={{ padding: 12, background: "rgba(8,8,12,.95)", backdropFilter: "blur(20px)", borderRadius: "16px 16px 0 0", border: "1px solid rgba(255,255,255,.03)", position: "fixed", bottom: 0, left: "50%", transform: "translateX(-50%)", width: "100%", maxWidth: 480, boxSizing: "border-box", zIndex: 50 }}>
             <div style={{ textAlign: "center", fontSize: 10, color: "#555", marginBottom: 6 }}>Mức độ ghi nhớ của bạn?</div>
             <div style={{ display: "flex", gap: 5 }}>
@@ -642,7 +582,6 @@
         </div>
       );
     }
-
     function RP({ w, onBack }) {
       const [msgs, setMsgs] = useState([]);
       const [inp, setInp] = useState("");
@@ -651,15 +590,12 @@
       const [typ, setTyp] = useState(false);
       const [turn, setTurn] = useState(0); 
       const end = useRef(null);
-      
       const kws = useMemo(() => [w.word, ...((w.meta && w.meta.syn) || []).slice(0, 2)], [w.id]);
-
       const scenario = useMemo(() => {
         const word = w.word;
         const syn1 = kws[1] ? kws[1] : "handle";
         const syn2 = kws[2] ? kws[2] : "manage";
         const context = (w.L800 && w.L800.sc) ? w.L800.sc : `We need to discuss the project.`;
-
         return [
           { ai: `Hi! ${context} How do you think we should proceed?`, hint: `I think we need to ${word} the situation carefully.` },
           { ai: `That's a valid approach. How will this affect our timeline?`, hint: `If we ${syn1} it well, there will be no delays.` },
@@ -667,33 +603,25 @@
           { ai: `Excellent! Let's finalize the details and move forward.`, hint: `Agreed. I will start drafting the final plan right away.` }
         ];
       }, [w.id, kws]);
-
       useEffect(() => { 
         setTurn(0);
         setMsgs([{ r: "ai", t: scenario[0].ai }]); 
         setKwU([]); 
         setPass(false); 
       }, [w.id, scenario]);
-
       useEffect(() => { end.current && end.current.scrollIntoView({ behavior: "smooth" }); }, [msgs]);
-
       const send = async () => {
         if (!inp.trim() || turn >= scenario.length) return;
-        const msg = inp; 
-        
+        const msg = inp;        
         setMsgs(p => [...p, { r: "user", t: msg }]); 
         setInp("");
-
         const nu = kws.filter(k => msg.toLowerCase().includes(k.toLowerCase()));
         const au = [...new Set([...kwU, ...nu])]; 
         setKwU(au); 
-
         const nextTurn = turn + 1;
         setTurn(nextTurn);
-
         setTyp(true); 
-        await new Promise(r => setTimeout(r, 900 + Math.random() * 700));
-        
+        await new Promise(r => setTimeout(r, 900 + Math.random() * 700)); 
         if (nextTurn < scenario.length) {
           setMsgs(p => [...p, { r: "ai", t: scenario[nextTurn].ai }]); 
         } else {
@@ -702,9 +630,7 @@
         }
         setTyp(false);
       };
-
       const isFinished = turn >= scenario.length;
-
       return (
         <div className="scr">
           <div style={{ background: "linear-gradient(135deg,#E17055,#FDCB6E)", borderRadius: 14, padding: "14px 16px", marginBottom: 8 }}>
@@ -716,7 +642,6 @@
               </div>
             </div>
           </div>
-
           <div style={{ padding: "8px 12px", background: "rgba(255,255,255,.02)", borderRadius: 10, border: "1px solid rgba(255,255,255,.04)", marginBottom: 8 }}>
             <div style={{ fontSize: 9, color: "#555", marginBottom: 4 }}>Từ khóa mục tiêu:</div>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
@@ -724,7 +649,6 @@
             </div>
             {pass && <div style={{ marginTop: 6, padding: 5, background: "rgba(0,184,148,.12)", borderRadius: 6, textAlign: "center", fontSize: 11, fontWeight: 700, color: "#00B894" }}>🎉 XUẤT SẮC BẠN ĐÃ QUA BÀI!</div>}
           </div>
-
           <div style={{ maxHeight: "35vh", overflowY: "auto", display: "flex", flexDirection: "column", gap: 6, marginBottom: 8 }}>
             {msgs.map((m, i) => (
               <div key={i} style={{ display: "flex", justifyContent: m.r === "user" ? "flex-end" : "flex-start", gap: 5, alignItems: "flex-end" }}>
@@ -735,7 +659,6 @@
             {typ && <div style={{ display: "flex", gap: 5, alignItems: "flex-end" }}><div style={{ width: 28, height: 28, borderRadius: "50%", background: "rgba(108,92,231,.12)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, flexShrink: 0 }}>🤖</div><div style={{ padding: "9px 13px", background: "rgba(255,255,255,.05)", borderRadius: "14px 14px 14px 3px" }}><span style={{ animation: "pulse 1s infinite", color: "#555" }}>● ● ●</span></div></div>}
             <div ref={end} />
           </div>
-
           {!isFinished && (
              <div style={{ padding: "8px 10px", background: "rgba(0,184,148,.06)", border: "1px dashed rgba(0,184,148,.2)", borderRadius: 10, marginBottom: 8 }}>
                <div style={{ fontSize: 10, color: "#00B894", fontWeight: 700, marginBottom: 2 }}>💡 Gợi ý trả lời:</div>
@@ -745,7 +668,6 @@
                </div>
              </div>
           )}
-
           <div style={{ display: "flex", gap: 5 }}>
             <input className="inp" style={{ borderRadius: 20, padding: "10px 14px", opacity: isFinished ? 0.5 : 1 }} placeholder={isFinished ? "Cuộc hội thoại đã kết thúc" : "Nhập tin nhắn..."} value={inp} onChange={e => setInp(e.target.value)} onKeyDown={e => e.key === "Enter" && send()} disabled={isFinished || typ} />
             <button className="btn" style={{ width: 40, height: 40, borderRadius: "50%", background: isFinished ? "rgba(255,255,255,.1)" : "linear-gradient(135deg,#6C5CE7,#A29BFE)", color: "#fff", fontSize: 14, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }} onClick={send} disabled={isFinished || typ}>➤</button>
@@ -754,11 +676,9 @@
         </div>
       );
     }
-    
     const rootElement = document.getElementById("root");
     const root = ReactDOM.createRoot(rootElement);
     root.render(<App />);
-
   </script>
 </body>
 </html>
