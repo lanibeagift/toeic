@@ -8,39 +8,34 @@
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Nunito',sans-serif;background:#0B0F1A;color:#F1F5F9;min-height:100vh;-webkit-font-smoothing:antialiased}
+body{font-family:'Nunito',sans-serif;background:#F5F7FA;color:#1E293B;min-height:100vh;-webkit-font-smoothing:antialiased}
 a{text-decoration:none;color:inherit}
-::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:#333;border-radius:4px}
 @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
-
-.wrap{max-width:560px;margin:0 auto;padding:28px 16px 40px}
-.head{text-align:center;margin-bottom:28px}
-.head h1{font-size:26px;font-weight:900;color:#F8FAFC;letter-spacing:-0.3px}
-.head p{font-size:13px;color:#64748B;font-weight:600;margin-top:4px}
-
-/* Category accordion */
-.cat{margin-bottom:6px;border-radius:16px;overflow:hidden;animation:fadeUp 0.35s ease both}
-.cat-btn{width:100%;display:flex;align-items:center;gap:14px;padding:15px 18px;background:#151A2D;border:1px solid #1E2640;border-radius:16px;cursor:pointer;text-align:left;transition:background 0.15s}
-.cat-btn:hover{background:#1A2038}
-.cat-icon{width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
-.cat-num{font-size:13px;font-weight:800;font-family:'Courier New',monospace}
-.cat-title{font-size:15px;font-weight:800;color:#F1F5F9}
-.cat-vi{font-size:12px;color:#4B5563;margin-top:1px}
-.cat-arrow{color:#334155;font-size:18px;transition:transform 0.25s;flex-shrink:0}
+.wrap{max-width:580px;margin:0 auto;padding:32px 16px 48px}
+.head{text-align:center;margin-bottom:32px}
+.head h1{font-size:28px;font-weight:900;color:#0F172A}
+.head p{font-size:14px;color:#64748B;font-weight:600;margin-top:6px}
+.cat{margin-bottom:8px;animation:fadeUp 0.4s ease both}
+.cat-btn{width:100%;display:flex;align-items:center;gap:14px;padding:16px 20px;background:#fff;border:1.5px solid #E8ECF2;border-radius:18px;cursor:pointer;text-align:left;transition:all 0.2s;box-shadow:0 1px 4px rgba(0,0,0,0.04)}
+.cat-btn:hover{box-shadow:0 4px 16px rgba(0,0,0,0.08);transform:translateY(-1px)}
+.cat-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.cat-num{font-size:14px;font-weight:900;font-family:'Courier New',monospace}
+.cat-title{font-size:16px;font-weight:800;color:#0F172A}
+.cat-vi{font-size:12px;color:#94A3B8;font-weight:600;margin-top:2px}
+.cat-count{font-size:11px;font-weight:700;color:#CBD5E1}
+.cat-arrow{font-size:20px;font-weight:700;transition:transform 0.25s}
 .cat-arrow.open{transform:rotate(90deg)}
-.cat-count{font-size:11px;color:#334155;font-weight:600}
-
-/* Sub-topic grid */
-.subs{display:none;grid-template-columns:1fr 1fr;gap:10px;padding:12px 0 6px}
+.subs{display:none;grid-template-columns:1fr 1fr;gap:10px;padding:12px 4px 4px}
 .subs.open{display:grid}
-.sub-card{display:block;padding:18px 14px 14px;background:#111728;border:1px solid #1E2640;border-radius:16px;text-align:left;cursor:pointer;position:relative;transition:background 0.15s,transform 0.12s}
-.sub-card:hover{background:#1A2038;transform:translateY(-1px)}
-.sub-card.disabled{opacity:0.45;pointer-events:none}
-.sub-card .soon{position:absolute;top:10px;right:10px;font-size:10px;font-weight:700;color:#475569;background:#1E293B;padding:2px 8px;border-radius:8px}
-.sub-icon{font-size:22px;margin-bottom:8px}
-.sub-title{font-size:14px;font-weight:800;color:#E2E8F0}
-.sub-vi{font-size:11px;color:#4B5563;margin-top:2px}
-.sub-count{font-size:11px;margin-top:6px;font-weight:600}
+.sub-card{display:block;padding:20px 16px 16px;background:#fff;border:1.5px solid #EEF1F6;border-radius:16px;text-align:left;position:relative;transition:all 0.2s;box-shadow:0 1px 4px rgba(0,0,0,0.03)}
+.sub-card:hover{box-shadow:0 6px 20px rgba(0,0,0,0.08);transform:translateY(-2px);border-color:#D4D9E3}
+.sub-card.disabled{opacity:0.4;pointer-events:none}
+.sub-card .soon{position:absolute;top:10px;right:10px;font-size:9px;font-weight:800;letter-spacing:0.5px;color:#94A3B8;background:#F1F5F9;padding:3px 8px;border-radius:8px}
+.sub-icon{font-size:26px;margin-bottom:10px}
+.sub-title{font-size:14px;font-weight:800;color:#1E293B}
+.sub-vi{font-size:11px;color:#94A3B8;font-weight:600;margin-top:3px}
+.sub-count{font-size:11px;margin-top:8px;font-weight:700}
+.footer{text-align:center;padding-top:32px;font-size:12px;color:#CBD5E1}
 </style>
 </head>
 <body>
@@ -49,137 +44,61 @@ a{text-decoration:none;color:inherit}
     <h1>📚 TOEIC Vocabulary</h1>
     <p>600 Essential Words — 10 Chủ đề chính</p>
   </div>
-  <div id="categories"></div>
+  <div id="cats"></div>
+  <div class="footer">TOEIC 600 Essential Words • Barron's</div>
 </div>
-
 <script>
-const CATS = [
-  { num:"I", title:"Corporate Development", vi:"Phát triển doanh nghiệp", icon:"📊", color:"#6366F1", subs:[
-    { id:"contracts", title:"Contracts", vi:"Hợp đồng", icon:"📝", ready:true },
-    { id:"marketing", title:"Marketing", vi:"Tiếp thị", icon:"📢", ready:true },
-    { id:"warranties", title:"Warranties", vi:"Bảo hành", icon:"🛡️" },
-    { id:"business_planning", title:"Business Planning", vi:"Lập kế hoạch KD", icon:"📈" },
-    { id:"conferences", title:"Conferences", vi:"Hội nghị", icon:"🎤" },
-  ]},
-  { num:"II", title:"Office Issues", vi:"Vấn đề văn phòng", icon:"🏢", color:"#EC4899", subs:[
-    { id:"computers", title:"Computers", vi:"Máy tính", icon:"💻" },
-    { id:"office_tech", title:"Office Technology", vi:"Công nghệ VP", icon:"🖨️" },
-    { id:"office_procedures", title:"Office Procedures", vi:"Thủ tục VP", icon:"📋" },
-    { id:"electronics", title:"Electronics", vi:"Điện tử", icon:"🔌" },
-    { id:"correspondence", title:"Correspondence", vi:"Thư từ", icon:"✉️" },
-  ]},
-  { num:"III", title:"Personnel", vi:"Nhân sự", icon:"👥", color:"#F97316", subs:[
-    { id:"recruiting", title:"Recruiting", vi:"Tuyển dụng", icon:"🔍" },
-    { id:"applying", title:"Applying & Interviewing", vi:"Ứng tuyển & PV", icon:"📄" },
-    { id:"hiring", title:"Hiring", vi:"Tuyển chọn", icon:"✅" },
-    { id:"salaries", title:"Salaries & Benefits", vi:"Lương & Phúc lợi", icon:"💰" },
-    { id:"promotions", title:"Promotions", vi:"Thăng tiến", icon:"⭐" },
-  ]},
-  { num:"IV", title:"Purchasing", vi:"Mua sắm & Đấu thầu", icon:"🛒", color:"#0EA5E9", subs:[
-    { id:"shopping", title:"Shopping", vi:"Mua sắm", icon:"🛍️" },
-    { id:"ordering", title:"Ordering Supplies", vi:"Đặt hàng", icon:"📦" },
-    { id:"shipping", title:"Shipping", vi:"Vận chuyển", icon:"🚚" },
-    { id:"invoices", title:"Invoices", vi:"Hóa đơn", icon:"🧾" },
-    { id:"inventory", title:"Inventory", vi:"Kiểm kê hàng tồn", icon:"📋" },
-  ]},
-  { num:"V", title:"Financing & Budgeting", vi:"Tài chính & Ngân sách", icon:"💳", color:"#10B981", subs:[
-    { id:"banking", title:"Banking", vi:"Ngân hàng", icon:"🏦" },
-    { id:"accounting", title:"Accounting", vi:"Kế toán", icon:"📒" },
-    { id:"investments", title:"Investments", vi:"Đầu tư", icon:"📊" },
-    { id:"taxes", title:"Taxes", vi:"Thuế", icon:"🧮" },
-    { id:"financial_statements", title:"Financial Statements", vi:"Báo cáo tài chính", icon:"📑" },
-  ]},
-  { num:"VI", title:"Management Issues", vi:"Vấn đề quản trị", icon:"👔", color:"#8B5CF6", subs:[
-    { id:"property", title:"Property & Housing", vi:"Bất động sản", icon:"🏠" },
-    { id:"board", title:"Board Meetings", vi:"Họp ban giám đốc", icon:"🪑" },
-    { id:"quality", title:"Quality Control", vi:"Kiểm soát chất lượng", icon:"🔬" },
-    { id:"product_dev", title:"Product Development", vi:"Phát triển SP", icon:"💡" },
-    { id:"renting_leasing", title:"Renting & Leasing", vi:"Thuê & Cho thuê", icon:"🔑" },
-  ]},
-  { num:"VII", title:"Health", vi:"Sức khỏe", icon:"🏥", color:"#EF4444", subs:[
-    { id:"doctor", title:"Doctor's Office", vi:"Phòng khám", icon:"🩺" },
-    { id:"dentist", title:"Dentist's Office", vi:"Nha khoa", icon:"🦷" },
-    { id:"health_insurance", title:"Health Insurance", vi:"Bảo hiểm y tế", icon:"🛡️" },
-    { id:"hospitals", title:"Hospitals", vi:"Bệnh viện", icon:"🏥" },
-    { id:"pharmacy", title:"Pharmacy", vi:"Nhà thuốc", icon:"💊" },
-  ]},
-  { num:"VIII", title:"Entertainment", vi:"Giải trí", icon:"🎭", color:"#D946EF", subs:[
-    { id:"movies", title:"Movies", vi:"Phim ảnh", icon:"🎬" },
-    { id:"theater", title:"Theater", vi:"Nhà hát", icon:"🎭" },
-    { id:"music", title:"Music", vi:"Âm nhạc", icon:"🎵" },
-    { id:"museums", title:"Museums", vi:"Bảo tàng", icon:"🖼️" },
-    { id:"media", title:"Media", vi:"Truyền thông", icon:"📺" },
-  ]},
-  { num:"IX", title:"Travel", vi:"Du lịch", icon:"✈️", color:"#0891B2", subs:[
-    { id:"airlines", title:"Airlines", vi:"Hàng không", icon:"✈️" },
-    { id:"trains", title:"Trains", vi:"Tàu hỏa", icon:"🚆" },
-    { id:"hotels", title:"Hotels", vi:"Khách sạn", icon:"🏨" },
-    { id:"car_rentals", title:"Car Rentals", vi:"Thuê xe", icon:"🚗" },
-    { id:"tourism", title:"Tourism", vi:"Du lịch", icon:"🗺️" },
-  ]},
-  { num:"X", title:"Dining Out", vi:"Ăn uống", icon:"🍽️", color:"#F59E0B", subs:[
-    { id:"restaurants", title:"Restaurants", vi:"Nhà hàng", icon:"🍽️" },
-    { id:"cooking", title:"Cooking", vi:"Nấu ăn", icon:"👨‍🍳" },
-    { id:"nutrition", title:"Nutrition", vi:"Dinh dưỡng", icon:"🥗" },
-    { id:"catering", title:"Catering", vi:"Dịch vụ ăn uống", icon:"🍱" },
-    { id:"event", title:"Event", vi:"Sự kiện", icon:"🎉" },
-  ]},
+const C=[
+{num:"I",title:"Corporate Development",vi:"Phát triển doanh nghiệp",icon:"📊",color:"#6366F1",subs:[
+{id:"contracts",title:"Contracts",vi:"Hợp đồng",icon:"📝",ok:1},{id:"marketing",title:"Marketing",vi:"Tiếp thị",icon:"📢",ok:1},{id:"warranties",title:"Warranties",vi:"Bảo hành",icon:"🛡️"},{id:"business_planning",title:"Business Planning",vi:"Lập kế hoạch KD",icon:"📈"},{id:"conferences",title:"Conferences",vi:"Hội nghị",icon:"🎤"}]},
+{num:"II",title:"Office Issues",vi:"Vấn đề văn phòng",icon:"🏢",color:"#EC4899",subs:[
+{id:"computers",title:"Computers",vi:"Máy tính",icon:"💻"},{id:"office_tech",title:"Office Technology",vi:"Công nghệ VP",icon:"🖨️"},{id:"office_procedures",title:"Office Procedures",vi:"Thủ tục VP",icon:"📋"},{id:"electronics",title:"Electronics",vi:"Điện tử",icon:"🔌"},{id:"correspondence",title:"Correspondence",vi:"Thư từ",icon:"✉️"}]},
+{num:"III",title:"Personnel",vi:"Nhân sự",icon:"👥",color:"#F97316",subs:[
+{id:"recruiting",title:"Recruiting",vi:"Tuyển dụng",icon:"🔍"},{id:"applying",title:"Applying & Interviewing",vi:"Ứng tuyển & PV",icon:"📄"},{id:"hiring",title:"Hiring",vi:"Tuyển chọn",icon:"✅"},{id:"salaries",title:"Salaries & Benefits",vi:"Lương & Phúc lợi",icon:"💰"},{id:"promotions",title:"Promotions",vi:"Thăng tiến",icon:"⭐"}]},
+{num:"IV",title:"Purchasing",vi:"Mua sắm & Đấu thầu",icon:"🛒",color:"#0EA5E9",subs:[
+{id:"shopping",title:"Shopping",vi:"Mua sắm",icon:"🛍️"},{id:"ordering",title:"Ordering Supplies",vi:"Đặt hàng",icon:"📦"},{id:"shipping",title:"Shipping",vi:"Vận chuyển",icon:"🚚"},{id:"invoices",title:"Invoices",vi:"Hóa đơn",icon:"🧾"},{id:"inventory",title:"Inventory",vi:"Kiểm kê hàng tồn",icon:"📋"}]},
+{num:"V",title:"Financing & Budgeting",vi:"Tài chính & Ngân sách",icon:"💳",color:"#10B981",subs:[
+{id:"banking",title:"Banking",vi:"Ngân hàng",icon:"🏦"},{id:"accounting",title:"Accounting",vi:"Kế toán",icon:"📒"},{id:"investments",title:"Investments",vi:"Đầu tư",icon:"📊"},{id:"taxes",title:"Taxes",vi:"Thuế",icon:"🧮"},{id:"financial_statements",title:"Financial Statements",vi:"Báo cáo tài chính",icon:"📑"}]},
+{num:"VI",title:"Management Issues",vi:"Vấn đề quản trị",icon:"👔",color:"#8B5CF6",subs:[
+{id:"property",title:"Property & Housing",vi:"Bất động sản",icon:"🏠"},{id:"board",title:"Board Meetings",vi:"Họp ban giám đốc",icon:"🪑"},{id:"quality",title:"Quality Control",vi:"Kiểm soát CL",icon:"🔬"},{id:"product_dev",title:"Product Development",vi:"Phát triển SP",icon:"💡"},{id:"renting_leasing",title:"Renting & Leasing",vi:"Thuê & Cho thuê",icon:"🔑"}]},
+{num:"VII",title:"Health",vi:"Sức khỏe",icon:"🏥",color:"#EF4444",subs:[
+{id:"doctor",title:"Doctor's Office",vi:"Phòng khám",icon:"🩺"},{id:"dentist",title:"Dentist's Office",vi:"Nha khoa",icon:"🦷"},{id:"health_insurance",title:"Health Insurance",vi:"Bảo hiểm y tế",icon:"🛡️"},{id:"hospitals",title:"Hospitals",vi:"Bệnh viện",icon:"🏥"},{id:"pharmacy",title:"Pharmacy",vi:"Nhà thuốc",icon:"💊"}]},
+{num:"VIII",title:"Entertainment",vi:"Giải trí",icon:"🎭",color:"#D946EF",subs:[
+{id:"movies",title:"Movies",vi:"Phim ảnh",icon:"🎬"},{id:"theater",title:"Theater",vi:"Nhà hát",icon:"🎭"},{id:"music",title:"Music",vi:"Âm nhạc",icon:"🎵"},{id:"museums",title:"Museums",vi:"Bảo tàng",icon:"🖼️"},{id:"media",title:"Media",vi:"Truyền thông",icon:"📺"}]},
+{num:"IX",title:"Travel",vi:"Du lịch",icon:"✈️",color:"#0891B2",subs:[
+{id:"airlines",title:"Airlines",vi:"Hàng không",icon:"✈️"},{id:"trains",title:"Trains",vi:"Tàu hỏa",icon:"🚆"},{id:"hotels",title:"Hotels",vi:"Khách sạn",icon:"🏨"},{id:"car_rentals",title:"Car Rentals",vi:"Thuê xe",icon:"🚗"},{id:"tourism",title:"Tourism",vi:"Du lịch",icon:"🗺️"}]},
+{num:"X",title:"Dining Out",vi:"Ăn uống",icon:"🍽️",color:"#F59E0B",subs:[
+{id:"restaurants",title:"Restaurants",vi:"Nhà hàng",icon:"🍽️"},{id:"cooking",title:"Cooking",vi:"Nấu ăn",icon:"👨‍🍳"},{id:"nutrition",title:"Nutrition",vi:"Dinh dưỡng",icon:"🥗"},{id:"catering",title:"Catering",vi:"Dịch vụ ăn uống",icon:"🍱"},{id:"event",title:"Event",vi:"Sự kiện",icon:"🎉"}]}
 ];
-
-const container = document.getElementById('categories');
-
-CATS.forEach((cat, i) => {
-  const readyCount = cat.subs.filter(s => s.ready).length;
-  const div = document.createElement('div');
-  div.className = 'cat';
-  div.style.animationDelay = (i * 0.04) + 's';
-
-  div.innerHTML = `
-    <button class="cat-btn" onclick="toggleCat(this)">
-      <div class="cat-icon" style="background:${cat.color}18">${cat.icon}</div>
-      <div style="flex:1">
-        <div style="display:flex;align-items:baseline;gap:6px">
-          <span class="cat-num" style="color:${cat.color}">${cat.num}.</span>
-          <span class="cat-title">${cat.title}</span>
-        </div>
-        <div class="cat-vi">${cat.vi}</div>
-      </div>
-      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px">
-        <span class="cat-count">${readyCount}/${cat.subs.length}</span>
-        <span class="cat-arrow">›</span>
-      </div>
-    </button>
-    <div class="subs">
-      ${cat.subs.map((s, j) => {
-        const ready = s.ready;
-        const href = ready ? `topics/${s.id}.html` : '#';
-        return `
-          <a href="${href}" class="sub-card ${ready ? '' : 'disabled'}" style="animation-delay:${j*0.05}s">
-            ${!ready ? '<span class="soon">SOON</span>' : ''}
-            <div class="sub-icon">${s.icon}</div>
-            <div class="sub-title">${s.title}</div>
-            <div class="sub-vi">${s.vi}</div>
-            <div class="sub-count" style="color:${ready ? cat.color : '#334155'}">0/12</div>
-          </a>
-        `;
-      }).join('')}
-    </div>
-  `;
-  container.appendChild(div);
+const el=document.getElementById('cats');
+C.forEach((c,i)=>{
+  const rc=c.subs.filter(s=>s.ok).length;
+  const d=document.createElement('div');d.className='cat';d.style.animationDelay=i*0.04+'s';
+  d.innerHTML='<button class="cat-btn" onclick="tog(this)">'+
+    '<div class="cat-icon" style="background:'+c.color+'12">'+c.icon+'</div>'+
+    '<div style="flex:1"><div style="display:flex;align-items:baseline;gap:6px">'+
+    '<span class="cat-num" style="color:'+c.color+'">'+c.num+'.</span>'+
+    '<span class="cat-title">'+c.title+'</span></div>'+
+    '<div class="cat-vi">'+c.vi+'</div></div>'+
+    '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px">'+
+    '<span class="cat-count">'+rc+'/'+c.subs.length+'</span>'+
+    '<span class="cat-arrow" style="color:'+c.color+'">›</span></div></button>'+
+    '<div class="subs">'+c.subs.map(s=>{
+      const ok=s.ok,hr=ok?'topics/'+s.id+'.html':'#';
+      return '<a href="'+hr+'" class="sub-card'+(ok?'':' disabled')+'">'+
+        (ok?'':'<span class="soon">SOON</span>')+
+        '<div class="sub-icon">'+s.icon+'</div>'+
+        '<div class="sub-title">'+s.title+'</div>'+
+        '<div class="sub-vi">'+s.vi+'</div>'+
+        '<div class="sub-count" style="color:'+(ok?c.color:'#CBD5E1')+'">0/12</div></a>';
+    }).join('')+'</div>';
+  el.appendChild(d);
 });
-
-function toggleCat(btn) {
-  const subs = btn.nextElementSibling;
-  const arrow = btn.querySelector('.cat-arrow');
-  const isOpen = subs.classList.contains('open');
-  // Close all
-  document.querySelectorAll('.subs.open').forEach(s => s.classList.remove('open'));
-  document.querySelectorAll('.cat-arrow.open').forEach(a => a.classList.remove('open'));
-  // Toggle current
-  if (!isOpen) {
-    subs.classList.add('open');
-    arrow.classList.add('open');
-  }
+function tog(b){
+  const s=b.nextElementSibling,a=b.querySelector('.cat-arrow'),o=s.classList.contains('open');
+  document.querySelectorAll('.subs.open').forEach(x=>x.classList.remove('open'));
+  document.querySelectorAll('.cat-arrow.open').forEach(x=>x.classList.remove('open'));
+  if(!o){s.classList.add('open');a.classList.add('open');}
 }
 </script>
 </body>
