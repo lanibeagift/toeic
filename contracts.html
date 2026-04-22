@@ -6,459 +6,257 @@
 <title>Contracts — TOEIC 600</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
+:root{--ac:#6366F1}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Nunito',sans-serif;background:#0B0F1A;color:#F1F5F9;min-height:100vh;-webkit-font-smoothing:antialiased}
-button{font-family:inherit;cursor:pointer}
-input{font-family:inherit}
-::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:#333;border-radius:4px}
-@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+body{font-family:'Nunito',sans-serif;background:#F5F7FA;color:#1E293B;min-height:100vh;-webkit-font-smoothing:antialiased}
+button,input{font-family:inherit}button{cursor:pointer}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 @keyframes wrong{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
-@keyframes listening{0%,100%{box-shadow:0 0 0 0 rgba(99,102,241,0.4)}50%{box-shadow:0 0 0 16px rgba(99,102,241,0)}}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(99,102,241,0.35)}50%{box-shadow:0 0 0 16px rgba(99,102,241,0)}}
+.wrap{max-width:580px;margin:0 auto}
 
-.wrap{max-width:560px;margin:0 auto}
-.topbar{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:#0F1322;border-bottom:1px solid #1E2640}
-.topbar a{background:none;border:none;font-size:18px;color:#64748B;font-weight:700;text-decoration:none}
-.topbar span{font-size:15px;font-weight:800}
-.tabs{display:flex;justify-content:center;gap:8px;padding:12px 16px;background:#0F1322;border-bottom:1px solid #1E2640}
-.tab-btn{padding:8px 18px;border-radius:20px;font-size:13px;font-weight:700;border:2px solid #1E2640;background:transparent;color:#64748B;transition:all 0.15s}
-.tab-btn.active{border-color:var(--accent);background:var(--accent);color:#fff}
+/* Top bar */
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:#fff;border-bottom:1.5px solid #EEF1F6}
+.topbar a{font-size:22px;color:#94A3B8;font-weight:700;text-decoration:none;padding:4px 8px;border-radius:10px;transition:background 0.15s}
+.topbar a:hover{background:#F1F5F9}
+.topbar .title{font-size:16px;font-weight:800;color:#0F172A}
+
+/* Tabs */
+.tabs{display:flex;justify-content:center;gap:8px;padding:14px 16px;background:#fff;border-bottom:1.5px solid #EEF1F6}
+.tab-btn{padding:9px 20px;border-radius:22px;font-size:13px;font-weight:700;border:2px solid #E2E8F0;background:#fff;color:#94A3B8;transition:all 0.15s}
+.tab-btn.active{background:var(--ac);color:#fff;border-color:var(--ac)}
+.tab-btn:hover:not(.active){background:#F8FAFC;border-color:#CBD5E1}
 .content{display:none}.content.active{display:block}
 
-/* Word list */
-.wl-wrap{padding:14px 14px 28px}
-.wl-title{font-size:14px;font-weight:800;color:#94A3B8;margin-bottom:12px}
-.wl-card{background:#151A2D;border-radius:16px;padding:18px;margin-bottom:12px;border:1px solid #1E2640;animation:fadeUp 0.3s ease both}
-.wl-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
-.wl-word{font-size:20px;font-weight:900;color:#F1F5F9}
-.wl-speak{background:none;border:none;font-size:16px;color:#64748B}
-.wl-pos{font-size:11px;font-weight:700;padding:2px 8px;border-radius:8px;background:color-mix(in srgb,var(--accent) 15%,transparent);color:var(--accent)}
-.wl-ipa{font-size:12px;color:#4B5563;margin-top:3px}
-.wl-vi{font-size:16px;font-weight:800;color:var(--accent);white-space:nowrap}
-.wl-sep{height:1px;background:#1E2640;margin:12px 0}
-.wl-ex{font-size:13px;color:#CBD5E1;line-height:1.55;margin-bottom:12px}
-.wl-ex b{color:#64748B;font-size:12px}
-.wl-ex-vi{font-size:12px;color:#4B5563;margin-top:3px}
-.wl-label{font-size:12px;font-weight:700;color:#64748B;margin-bottom:5px}
-.wl-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
-.wl-col{font-size:11px;padding:4px 10px;border-radius:14px;background:color-mix(in srgb,var(--accent) 12%,transparent);color:var(--accent);font-weight:600}
-.wl-syn{font-size:11px;padding:4px 10px;border-radius:14px;background:rgba(6,78,59,0.2);color:#34D399;font-weight:600}
+/* ── XEM TỪ ── */
+.wl{padding:16px 14px 32px}
+.wl-head{font-size:15px;font-weight:800;color:#64748B;margin-bottom:14px}
+.wc{background:#fff;border-radius:18px;padding:20px;margin-bottom:14px;border:1.5px solid #EEF1F6;box-shadow:0 1px 4px rgba(0,0,0,0.03);animation:fadeUp 0.3s ease both}
+.wc-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.wc-word{font-size:21px;font-weight:900;color:#0F172A}
+.wc-spk{background:none;border:none;font-size:18px;color:#94A3B8;padding:2px}
+.wc-spk:hover{color:var(--ac)}
+.wc-pos{font-size:11px;font-weight:700;padding:2px 9px;border-radius:8px;background:color-mix(in srgb,var(--ac) 10%,#fff);color:var(--ac)}
+.wc-ipa{font-size:12px;color:#94A3B8;margin-top:4px}
+.wc-vi{font-size:17px;font-weight:800;color:var(--ac);white-space:nowrap;margin-top:2px}
+.wc-sep{height:1px;background:#F1F5F9;margin:14px 0}
+.wc-ex{font-size:13px;color:#475569;line-height:1.6}
+.wc-ex b{color:#94A3B8;font-size:12px;font-weight:700}
+.wc-exvi{font-size:12px;color:#94A3B8;margin-top:4px;margin-bottom:14px}
+.wc-label{font-size:12px;font-weight:700;color:#94A3B8;margin-bottom:6px}
+.wc-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.wc-col{font-size:11px;padding:5px 12px;border-radius:16px;background:color-mix(in srgb,var(--ac) 8%,#fff);color:var(--ac);font-weight:600;border:1px solid color-mix(in srgb,var(--ac) 18%,#fff)}
+.wc-syn{font-size:11px;padding:5px 12px;border-radius:16px;background:#ECFDF5;color:#059669;font-weight:600;border:1px solid #D1FAE5}
 
-/* Common */
-.card{background:#151A2D;border-radius:20px;padding:26px 20px;box-shadow:0 2px 16px rgba(0,0,0,0.15);text-align:center;border:1px solid #1E2640;min-height:180px}
-.chip{font-size:11px;padding:3px 9px;border-radius:10px;font-weight:700;display:inline-block;margin-bottom:6px;background:color-mix(in srgb,var(--accent) 15%,transparent);color:var(--accent)}
-.big-word{font-size:32px;font-weight:900;margin:8px 0}
-.big-vi{font-size:28px;font-weight:900;margin:0 0 12px}
-.ipa-row{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:16px}
-.ipa-row button{background:none;border:none;font-size:20px;cursor:pointer}
-.ipa-row span{font-size:14px;color:#4B5563}
-.ex-box{background:#0B0F1A;border-radius:12px;padding:12px;margin-bottom:12px;text-align:left}
-.ex-box .en{font-size:13px;color:#CBD5E1;font-style:italic;line-height:1.5}
-.ex-box .vi{font-size:12px;color:#4B5563;margin-top:3px}
-.tag-row{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;margin-bottom:8px}
-.syn-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:5px}
-.btn-primary{padding:13px 22px;font-size:14px;font-weight:700;color:#fff;border:none;border-radius:14px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,0.2);flex:1;text-align:center;background:var(--accent)}
-.btn-second{padding:13px 22px;font-size:14px;font-weight:700;color:#4ADE80;border:2px solid #065F46;border-radius:14px;cursor:pointer;flex:1;text-align:center;background:#064E3B}
-.action-row{display:flex;gap:10px;margin-top:12px}
-.progress-bar{height:4px;background:#1E2640;margin:0 14px 10px}
-.progress-fill{height:100%;background:var(--accent);border-radius:2px;transition:width 0.4s}
-.mode-chips{display:flex;justify-content:center;gap:5px;padding:0 8px 10px;flex-wrap:wrap}
-.mode-chip{font-size:11px;padding:4px 10px;border-radius:14px;font-weight:700;border:1.5px solid #1E2640;background:transparent;color:#475569}
-.mode-chip.active{background:var(--accent);color:#fff;border-color:var(--accent)}
-.bottom-stats{text-align:center;padding:12px 0;font-size:13px;color:#475569}
+/* ── HỌC ── */
+.learn-wrap{padding:0 0 16px}
+.prog{height:5px;background:#E8ECF2;margin:0 14px 12px;border-radius:3px;overflow:hidden}
+.prog-fill{height:100%;background:var(--ac);border-radius:3px;transition:width 0.4s}
+.modes{display:flex;justify-content:center;gap:5px;padding:0 8px 12px;flex-wrap:wrap}
+.mode-c{font-size:11px;padding:5px 11px;border-radius:16px;font-weight:700;border:1.5px solid #E2E8F0;background:#fff;color:#94A3B8}
+.mode-c.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.card-area{padding:0 14px}
+.card{background:#fff;border-radius:20px;padding:28px 22px;box-shadow:0 2px 16px rgba(0,0,0,0.06);text-align:center;border:1.5px solid #EEF1F6;min-height:180px;cursor:pointer}
+.chip{font-size:11px;padding:3px 10px;border-radius:10px;font-weight:700;display:inline-block;margin-bottom:8px;background:color-mix(in srgb,var(--ac) 10%,#fff);color:var(--ac)}
+.bw{font-size:34px;font-weight:900;color:#0F172A;margin:8px 0}
+.bv{font-size:28px;font-weight:900;color:#0F172A;margin:0 0 14px}
+.ipa-r{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:16px}
+.ipa-r button{background:none;border:none;font-size:22px;cursor:pointer;color:#94A3B8}
+.ipa-r button:hover{color:var(--ac)}
+.ipa-r span{font-size:14px;color:#94A3B8}
+.ebox{background:#F8FAFC;border-radius:14px;padding:14px;margin-bottom:14px;text-align:left;border:1px solid #F1F5F9}
+.ebox .en{font-size:13px;color:#475569;font-style:italic;line-height:1.5}
+.ebox .vi{font-size:12px;color:#94A3B8;margin-top:4px}
+.ar{display:flex;gap:10px;margin-top:14px}
+.btn-p{padding:14px 22px;font-size:15px;font-weight:700;color:#fff;border:none;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,0.1);flex:1;text-align:center;background:var(--ac)}
+.btn-s{padding:14px 22px;font-size:15px;font-weight:700;color:#22C55E;border:2px solid #BBF7D0;border-radius:14px;flex:1;text-align:center;background:#F0FDF4}
 
 /* Quiz */
-.quiz-opt{display:flex;align-items:center;gap:12px;padding:12px 14px;background:#0B0F1A;border:2px solid #1E2640;border-radius:14px;cursor:pointer;font-size:14px;font-weight:600;color:#CBD5E1;text-align:left;transition:all 0.12s;width:100%;margin-bottom:7px}
-.quiz-opt.correct{background:rgba(6,78,59,0.25);border-color:#22C55E;color:#4ADE80}
-.quiz-opt.wrong{background:rgba(127,29,29,0.25);border-color:#EF4444;color:#FCA5A5;animation:wrong 0.3s}
-.opt-num{width:24px;height:24px;border-radius:50%;background:color-mix(in srgb,var(--accent) 15%,transparent);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0}
+.qo{display:flex;align-items:center;gap:12px;padding:13px 16px;background:#F8FAFC;border:2px solid #E8ECF2;border-radius:14px;font-size:15px;font-weight:600;color:#334155;text-align:left;width:100%;margin-bottom:8px;transition:all 0.12s}
+.qo:hover:not(.ok):not(.no){background:#F1F5F9;border-color:#CBD5E1}
+.qo.ok{background:#F0FDF4;border-color:#22C55E;color:#166534}
+.qo.no{background:#FEF2F2;border-color:#EF4444;color:#991B1B;animation:wrong 0.3s}
+.qn{width:26px;height:26px;border-radius:50%;background:color-mix(in srgb,var(--ac) 10%,#fff);color:var(--ac);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0}
 
 /* Typing */
-.typ-input{width:100%;padding:13px 14px;font-size:17px;font-weight:600;border:2.5px solid var(--accent);border-radius:14px;outline:none;text-align:center;background:#0B0F1A;color:#F1F5F9}
-.typ-input.ok{border-color:#22C55E;background:rgba(6,78,59,0.2)}
-.typ-input.bad{border-color:#EF4444;background:rgba(127,29,29,0.2)}
-.hint-btn{width:42px;height:42px;border-radius:50%;border:2px solid #1E2640;background:#0B0F1A;font-size:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer}
+.tinp{width:100%;padding:14px;font-size:18px;font-weight:600;border:2.5px solid var(--ac);border-radius:14px;outline:none;text-align:center;background:#fff;color:#0F172A}
+.tinp.ok{border-color:#22C55E;background:#F0FDF4}.tinp.bad{border-color:#EF4444;background:#FEF2F2}
+.hbtn{width:44px;height:44px;border-radius:50%;border:2px solid #E2E8F0;background:#fff;font-size:20px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 
 /* Mic */
-.mic-btn{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--accent),#06B6D4);border:none;font-size:28px;cursor:pointer;color:#fff;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 4px 20px color-mix(in srgb,var(--accent) 40%,transparent)}
-.mic-btn.on{animation:listening 1.2s infinite}
-.score-bar{height:8px;background:#1E2640;border-radius:4px;overflow:hidden;margin-top:8px}
-.score-fill{height:100%;border-radius:4px;transition:width 0.5s}
+.mic{width:76px;height:76px;border-radius:50%;background:linear-gradient(135deg,var(--ac),#06B6D4);border:none;font-size:30px;color:#fff;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(99,102,241,0.25)}
+.mic.on{animation:pulse 1.2s infinite}
+.sbar{height:8px;background:#E8ECF2;border-radius:4px;overflow:hidden;margin-top:8px}
+.sfill{height:100%;border-radius:4px;transition:width 0.5s}
 
 /* SR */
-.sr-row{display:flex;gap:7px;margin-top:12px}
-.sr-btn{flex:1;padding:13px 4px;border:none;border-radius:14px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;box-shadow:0 2px 8px rgba(0,0,0,0.2)}
-.sr-btn span:first-child{font-weight:700;color:#fff;font-size:12px}
-.sr-btn span:last-child{color:rgba(255,255,255,0.75);font-size:11px}
+.sr-r{display:flex;gap:8px;margin-top:14px}
+.sr-b{flex:1;padding:14px 4px;border:none;border-radius:14px;display:flex;flex-direction:column;align-items:center;gap:2px;box-shadow:0 2px 10px rgba(0,0,0,0.1)}
+.sr-b span:first-child{font-weight:700;color:#fff;font-size:13px}
+.sr-b span:last-child{color:rgba(255,255,255,0.8);font-size:11px}
+.bstats{text-align:center;padding:14px 0;font-size:13px;color:#94A3B8}
 
 /* Game */
-.game-header{display:flex;justify-content:center;gap:10px;margin-bottom:14px}
-.game-stat{padding:5px 12px;border-radius:16px;font-size:12px;font-weight:700}
-.match-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px}
-.match-card{padding:15px 8px;border-radius:14px;font-weight:600;cursor:pointer;text-align:center;min-height:52px;display:flex;align-items:center;justify-content:center;line-height:1.3;transition:all 0.15s;border:2.5px solid transparent;box-shadow:0 1px 4px rgba(0,0,0,0.15)}
-.match-card.matched{opacity:0.35;transform:scale(0.95);cursor:default;box-shadow:none}
-.match-card.wrong-pair{animation:wrong 0.3s}
+.gh{display:flex;justify-content:center;gap:10px;margin-bottom:16px}
+.gs{padding:6px 14px;border-radius:18px;font-size:12px;font-weight:700}
+.mgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.mc{padding:16px 8px;border-radius:14px;font-weight:600;text-align:center;min-height:54px;display:flex;align-items:center;justify-content:center;line-height:1.3;transition:all 0.15s;border:2.5px solid transparent;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.mc:hover:not(.done){transform:translateY(-1px);box-shadow:0 4px 14px rgba(0,0,0,0.1)}
+.mc.done{opacity:0.3;transform:scale(0.95);cursor:default;box-shadow:none}
+.mc.wpair{animation:wrong 0.3s}
 </style>
 </head>
 <body>
 <!--
-  ╔══════════════════════════════════════════════════╗
-  ║  TOPIC: CONTRACTS                                ║
-  ║  Thuộc: I. Corporate Development                 ║
-  ║  Accent color: #6366F1 (Indigo)                  ║
-  ║                                                  ║
-  ║  Để tạo topic mới:                               ║
-  ║  1. Copy file này, đổi tên (vd: marketing.html)  ║
-  ║  2. Đổi TOPIC_META ở dưới                        ║
-  ║  3. Đổi mảng WORDS                               ║
-  ║  4. Thêm link trong index.html                   ║
-  ╚══════════════════════════════════════════════════╝
+  ╔═══════════════════════════════════════════════╗
+  ║  TOPIC: CONTRACTS                             ║
+  ║  Accent: --ac: #6366F1                        ║
+  ║  Để tạo topic mới: copy, đổi WORDS + meta    ║
+  ╚═══════════════════════════════════════════════╝
 -->
-
-<div class="wrap" style="--accent:#6366F1">
-  <!-- Top bar -->
+<div class="wrap" id="app">
   <div class="topbar">
     <a href="../index.html">←</a>
-    <span>📝 Contracts</span>
-    <div style="width:28px"></div>
+    <span class="title">📝 Contracts</span>
+    <div style="width:36px"></div>
   </div>
-  <!-- Tabs -->
   <div class="tabs">
-    <button class="tab-btn active" onclick="switchTab('words',this)">👁 Xem từ</button>
-    <button class="tab-btn" onclick="switchTab('learn',this)">📖 Học</button>
-    <button class="tab-btn" onclick="switchTab('play',this)">🎮 Chơi</button>
+    <button class="tab-btn active" onclick="sw('words',this)">👁 Xem từ</button>
+    <button class="tab-btn" onclick="sw('learn',this)">📖 Học</button>
+    <button class="tab-btn" onclick="sw('play',this)">🎮 Chơi</button>
   </div>
-  <!-- Tab content -->
-  <div id="tab-words" class="content active"></div>
-  <div id="tab-learn" class="content"></div>
-  <div id="tab-play" class="content"></div>
+  <div id="t-words" class="content active"></div>
+  <div id="t-learn" class="content"></div>
+  <div id="t-play" class="content"></div>
 </div>
-
 <script>
-/* ═══════════════════════════════════════════════════════════
-   WORDS DATA — Chỉ cần thay phần này cho mỗi topic
-   ═══════════════════════════════════════════════════════════ */
-const WORDS = [
-  {
-    id:1, word:"abide by", pos:"verb",
-    ipa_uk:"/əˈbaɪd baɪ/", ipa_us:"/əˈbaɪd baɪ/",
-    vi:"tuân thủ, tôn trọng",
-    example:"All employees are expected to abide by the safety regulations outlined in their contracts.",
-    exampleVi:"Tất cả nhân viên được kỳ vọng tuân thủ các quy định an toàn được nêu trong hợp đồng.",
-    collocations:["abide by the rules: tuân thủ quy tắc","abide by the law: tuân thủ pháp luật","abide by a decision: tôn trọng quyết định"],
-    synonyms:["comply with: tuân theo","follow: làm theo","observe: chấp hành"],
-    distractors:["phản đối","trì hoãn","đề xuất"]
-  },
-  {
-    id:2, word:"agreement", pos:"noun",
-    ipa_uk:"/əˈɡriːmənt/", ipa_us:"/əˈɡriːmənt/",
-    vi:"thỏa thuận, hợp đồng",
-    example:"The rental agreement must be signed by both the tenant and the landlord before moving in.",
-    exampleVi:"Thỏa thuận thuê nhà phải được ký bởi cả người thuê và chủ nhà trước khi dọn vào.",
-    collocations:["reach an agreement: đạt thỏa thuận","sign an agreement: ký thỏa thuận","verbal agreement: thỏa thuận miệng"],
-    synonyms:["contract: hợp đồng","deal: giao dịch","arrangement: sự sắp xếp"],
-    distractors:["tranh chấp","khoản vay","biên bản"]
-  },
-  {
-    id:3, word:"assurance", pos:"noun",
-    ipa_uk:"/əˈʃʊərəns/", ipa_us:"/əˈʃʊrəns/",
-    vi:"sự đảm bảo, sự cam đoan",
-    example:"The manager gave us assurance that the project would be delivered on schedule.",
-    exampleVi:"Người quản lý đưa ra sự đảm bảo rằng dự án sẽ được bàn giao đúng tiến độ.",
-    collocations:["give assurance: đưa ra đảm bảo","quality assurance: đảm bảo chất lượng","seek assurance: tìm kiếm sự đảm bảo"],
-    synonyms:["guarantee: sự bảo đảm","promise: lời hứa","pledge: cam kết"],
-    distractors:["nghi ngờ","rủi ro","khiếu nại"]
-  },
-  {
-    id:4, word:"cancel", pos:"verb",
-    ipa_uk:"/ˈkænsl/", ipa_us:"/ˈkænsl/",
-    vi:"hủy bỏ",
-    example:"Due to the supplier's repeated delays, the purchasing department decided to cancel the order.",
-    exampleVi:"Do nhà cung cấp liên tục trì hoãn, phòng mua hàng đã quyết định hủy đơn hàng.",
-    collocations:["cancel a contract: hủy hợp đồng","cancel an order: hủy đơn hàng","cancel a meeting: hủy cuộc họp"],
-    synonyms:["terminate: chấm dứt","annul: bãi bỏ","call off: hủy bỏ"],
-    distractors:["phê duyệt","gia hạn","xác nhận"]
-  },
-  {
-    id:5, word:"determine", pos:"verb",
-    ipa_uk:"/dɪˈtɜːmɪn/", ipa_us:"/dɪˈtɜːrmɪn/",
-    vi:"xác định, quyết định",
-    example:"A team of auditors was brought in to determine the cause of the accounting discrepancy.",
-    exampleVi:"Một nhóm kiểm toán viên được mời đến để xác định nguyên nhân sai lệch kế toán.",
-    collocations:["determine the cause: xác định nguyên nhân","determine the outcome: quyết định kết quả","determine eligibility: xác định điều kiện đủ"],
-    synonyms:["decide: quyết định","figure out: tìm ra","ascertain: xác minh"],
-    distractors:["phỏng đoán","trì hoãn","phân phối"]
-  },
-  {
-    id:6, word:"engage", pos:"verb",
-    ipa_uk:"/ɪnˈɡeɪdʒ/", ipa_us:"/ɪnˈɡeɪdʒ/",
-    vi:"tham gia; thuê, mời",
-    example:"The firm engaged an outside consultant to review the terms of the merger.",
-    exampleVi:"Công ty đã thuê một chuyên gia tư vấn bên ngoài để xem xét các điều khoản sáp nhập.",
-    collocations:["engage a consultant: thuê tư vấn","engage in negotiations: tham gia đàm phán","engage employees: thu hút nhân viên"],
-    synonyms:["hire: thuê","involve: lôi kéo","participate: tham gia"],
-    distractors:["sa thải","từ chối","nghỉ hưu"]
-  },
-  {
-    id:7, word:"establish", pos:"verb",
-    ipa_uk:"/ɪˈstæblɪʃ/", ipa_us:"/ɪˈstæblɪʃ/",
-    vi:"thiết lập, thành lập",
-    example:"It took over a year to establish the guidelines for the new international trade agreement.",
-    exampleVi:"Phải mất hơn một năm để thiết lập các hướng dẫn cho thỏa thuận thương mại quốc tế mới.",
-    collocations:["establish a company: thành lập công ty","establish guidelines: thiết lập hướng dẫn","establish a relationship: thiết lập mối quan hệ"],
-    synonyms:["set up: thiết lập","found: sáng lập","create: tạo dựng"],
-    distractors:["giải thể","thu hẹp","di dời"]
-  },
-  {
-    id:8, word:"obligate", pos:"verb",
-    ipa_uk:"/ˈɒblɪɡeɪt/", ipa_us:"/ˈɑːblɪɡeɪt/",
-    vi:"bắt buộc, ràng buộc",
-    example:"Signing the lease obligates the tenant to pay rent for the full twelve-month period.",
-    exampleVi:"Việc ký hợp đồng thuê bắt buộc người thuê phải trả tiền thuê trong suốt mười hai tháng.",
-    collocations:["legally obligated: bị ràng buộc pháp lý","obligated to comply: bắt buộc tuân thủ","feel obligated: cảm thấy có nghĩa vụ"],
-    synonyms:["require: yêu cầu","compel: buộc","bind: ràng buộc"],
-    distractors:["miễn trừ","cho phép","khuyến khích"]
-  },
-  {
-    id:9, word:"party", pos:"noun",
-    ipa_uk:"/ˈpɑːti/", ipa_us:"/ˈpɑːrti/",
-    vi:"bên (tham gia hợp đồng)",
-    example:"The injured party has the right to seek compensation under the terms of the contract.",
-    exampleVi:"Bên bị thiệt hại có quyền yêu cầu bồi thường theo các điều khoản của hợp đồng.",
-    collocations:["third party: bên thứ ba","contracting party: bên ký kết","injured party: bên bị thiệt hại"],
-    synonyms:["side: phía","entity: thực thể","participant: bên tham gia"],
-    distractors:["trọng tài","nhân chứng","cổ đông"]
-  },
-  {
-    id:10, word:"provision", pos:"noun",
-    ipa_uk:"/prəˈvɪʒn/", ipa_us:"/prəˈvɪʒn/",
-    vi:"điều khoản, quy định",
-    example:"According to the provisions of the contract, payment must be made within 60 days.",
-    exampleVi:"Theo các điều khoản của hợp đồng, việc thanh toán phải được thực hiện trong vòng 60 ngày.",
-    collocations:["key provision: điều khoản chính","legal provision: quy định pháp luật","make provisions for: đưa ra các quy định cho"],
-    synonyms:["clause: điều khoản","stipulation: quy định","term: điều kiện"],
-    distractors:["phụ lục","bản nháp","biên nhận"]
-  },
-  {
-    id:11, word:"resolve", pos:"verb",
-    ipa_uk:"/rɪˈzɒlv/", ipa_us:"/rɪˈzɑːlv/",
-    vi:"giải quyết",
-    example:"The two parties were able to resolve their dispute without going to court.",
-    exampleVi:"Hai bên đã có thể giải quyết tranh chấp mà không cần ra tòa.",
-    collocations:["resolve a dispute: giải quyết tranh chấp","resolve a conflict: giải quyết xung đột","resolve an issue: giải quyết vấn đề"],
-    synonyms:["settle: dàn xếp","sort out: xử lý","work out: tìm ra giải pháp"],
-    distractors:["leo thang","gây ra","trốn tránh"]
-  },
-  {
-    id:12, word:"specify", pos:"verb",
-    ipa_uk:"/ˈspesɪfaɪ/", ipa_us:"/ˈspesɪfaɪ/",
-    vi:"chỉ rõ, quy định cụ thể",
-    example:"The agreement specifies that all deliveries must be made before 5 p.m. on weekdays.",
-    exampleVi:"Thỏa thuận quy định cụ thể rằng tất cả giao hàng phải được thực hiện trước 5 giờ chiều các ngày trong tuần.",
-    collocations:["clearly specify: chỉ rõ ràng","specify the terms: quy định điều khoản","specify requirements: nêu rõ yêu cầu"],
-    synonyms:["state: nêu rõ","define: xác định","detail: chi tiết hóa"],
-    distractors:["khái quát","bỏ sót","ước lượng"]
-  }
+/* ═══════════  DATA  ═══════════ */
+const W=[
+{id:1,word:"abide by",pos:"verb",ipa_uk:"/əˈbaɪd baɪ/",ipa_us:"/əˈbaɪd baɪ/",vi:"tuân thủ, tôn trọng",example:"All employees are expected to abide by the safety regulations outlined in their contracts.",exampleVi:"Tất cả nhân viên được kỳ vọng tuân thủ các quy định an toàn được nêu trong hợp đồng.",collocations:["abide by the rules: tuân thủ quy tắc","abide by the law: tuân thủ pháp luật","abide by a decision: tôn trọng quyết định"],synonyms:["comply with: tuân theo","follow: làm theo","observe: chấp hành"],distractors:["phản đối","trì hoãn","đề xuất"]},
+{id:2,word:"agreement",pos:"noun",ipa_uk:"/əˈɡriːmənt/",ipa_us:"/əˈɡriːmənt/",vi:"thỏa thuận, hợp đồng",example:"The rental agreement must be signed by both the tenant and the landlord before moving in.",exampleVi:"Thỏa thuận thuê nhà phải được ký bởi cả người thuê và chủ nhà trước khi dọn vào.",collocations:["reach an agreement: đạt thỏa thuận","sign an agreement: ký thỏa thuận","verbal agreement: thỏa thuận miệng"],synonyms:["contract: hợp đồng","deal: giao dịch","arrangement: sự sắp xếp"],distractors:["tranh chấp","khoản vay","biên bản"]},
+{id:3,word:"assurance",pos:"noun",ipa_uk:"/əˈʃʊərəns/",ipa_us:"/əˈʃʊrəns/",vi:"sự đảm bảo, sự cam đoan",example:"The manager gave us assurance that the project would be delivered on schedule.",exampleVi:"Người quản lý đưa ra sự đảm bảo rằng dự án sẽ được bàn giao đúng tiến độ.",collocations:["give assurance: đưa ra đảm bảo","quality assurance: đảm bảo chất lượng","seek assurance: tìm kiếm sự đảm bảo"],synonyms:["guarantee: sự bảo đảm","promise: lời hứa","pledge: cam kết"],distractors:["nghi ngờ","rủi ro","khiếu nại"]},
+{id:4,word:"cancel",pos:"verb",ipa_uk:"/ˈkænsl/",ipa_us:"/ˈkænsl/",vi:"hủy bỏ",example:"Due to the supplier's repeated delays, the purchasing department decided to cancel the order.",exampleVi:"Do nhà cung cấp liên tục trì hoãn, phòng mua hàng đã quyết định hủy đơn hàng.",collocations:["cancel a contract: hủy hợp đồng","cancel an order: hủy đơn hàng","cancel a meeting: hủy cuộc họp"],synonyms:["terminate: chấm dứt","annul: bãi bỏ","call off: hủy bỏ"],distractors:["phê duyệt","gia hạn","xác nhận"]},
+{id:5,word:"determine",pos:"verb",ipa_uk:"/dɪˈtɜːmɪn/",ipa_us:"/dɪˈtɜːrmɪn/",vi:"xác định, quyết định",example:"A team of auditors was brought in to determine the cause of the accounting discrepancy.",exampleVi:"Một nhóm kiểm toán viên được mời đến để xác định nguyên nhân sai lệch kế toán.",collocations:["determine the cause: xác định nguyên nhân","determine the outcome: quyết định kết quả","determine eligibility: xác định điều kiện đủ"],synonyms:["decide: quyết định","figure out: tìm ra","ascertain: xác minh"],distractors:["phỏng đoán","phân phối","bỏ qua"]},
+{id:6,word:"engage",pos:"verb",ipa_uk:"/ɪnˈɡeɪdʒ/",ipa_us:"/ɪnˈɡeɪdʒ/",vi:"tham gia; thuê, mời",example:"The firm engaged an outside consultant to review the terms of the merger.",exampleVi:"Công ty đã thuê một chuyên gia tư vấn bên ngoài để xem xét các điều khoản sáp nhập.",collocations:["engage a consultant: thuê tư vấn","engage in negotiations: tham gia đàm phán","engage employees: thu hút nhân viên"],synonyms:["hire: thuê","involve: lôi kéo","participate: tham gia"],distractors:["sa thải","từ chối","nghỉ hưu"]},
+{id:7,word:"establish",pos:"verb",ipa_uk:"/ɪˈstæblɪʃ/",ipa_us:"/ɪˈstæblɪʃ/",vi:"thiết lập, thành lập",example:"It took over a year to establish the guidelines for the new international trade agreement.",exampleVi:"Phải mất hơn một năm để thiết lập các hướng dẫn cho thỏa thuận thương mại quốc tế mới.",collocations:["establish a company: thành lập công ty","establish guidelines: thiết lập hướng dẫn","establish a relationship: thiết lập mối quan hệ"],synonyms:["set up: thiết lập","found: sáng lập","create: tạo dựng"],distractors:["giải thể","thu hẹp","di dời"]},
+{id:8,word:"obligate",pos:"verb",ipa_uk:"/ˈɒblɪɡeɪt/",ipa_us:"/ˈɑːblɪɡeɪt/",vi:"bắt buộc, ràng buộc",example:"Signing the lease obligates the tenant to pay rent for the full twelve-month period.",exampleVi:"Việc ký hợp đồng thuê bắt buộc người thuê phải trả tiền thuê trong suốt mười hai tháng.",collocations:["legally obligated: bị ràng buộc pháp lý","obligated to comply: bắt buộc tuân thủ","feel obligated: cảm thấy có nghĩa vụ"],synonyms:["require: yêu cầu","compel: buộc","bind: ràng buộc"],distractors:["miễn trừ","cho phép","khuyến khích"]},
+{id:9,word:"party",pos:"noun",ipa_uk:"/ˈpɑːti/",ipa_us:"/ˈpɑːrti/",vi:"bên (tham gia hợp đồng)",example:"The injured party has the right to seek compensation under the terms of the contract.",exampleVi:"Bên bị thiệt hại có quyền yêu cầu bồi thường theo các điều khoản của hợp đồng.",collocations:["third party: bên thứ ba","contracting party: bên ký kết","injured party: bên bị thiệt hại"],synonyms:["side: phía","entity: thực thể","participant: bên tham gia"],distractors:["trọng tài","nhân chứng","cổ đông"]},
+{id:10,word:"provision",pos:"noun",ipa_uk:"/prəˈvɪʒn/",ipa_us:"/prəˈvɪʒn/",vi:"điều khoản, quy định",example:"According to the provisions of the contract, payment must be made within 60 days.",exampleVi:"Theo các điều khoản của hợp đồng, việc thanh toán phải được thực hiện trong vòng 60 ngày.",collocations:["key provision: điều khoản chính","legal provision: quy định pháp luật","make provisions for: đưa ra các quy định cho"],synonyms:["clause: điều khoản","stipulation: quy định","term: điều kiện"],distractors:["phụ lục","bản nháp","biên nhận"]},
+{id:11,word:"resolve",pos:"verb",ipa_uk:"/rɪˈzɒlv/",ipa_us:"/rɪˈzɑːlv/",vi:"giải quyết",example:"The two parties were able to resolve their dispute without going to court.",exampleVi:"Hai bên đã có thể giải quyết tranh chấp mà không cần ra tòa.",collocations:["resolve a dispute: giải quyết tranh chấp","resolve a conflict: giải quyết xung đột","resolve an issue: giải quyết vấn đề"],synonyms:["settle: dàn xếp","sort out: xử lý","work out: tìm ra giải pháp"],distractors:["leo thang","gây ra","trốn tránh"]},
+{id:12,word:"specify",pos:"verb",ipa_uk:"/ˈspesɪfaɪ/",ipa_us:"/ˈspesɪfaɪ/",vi:"chỉ rõ, quy định cụ thể",example:"The agreement specifies that all deliveries must be made before 5 p.m. on weekdays.",exampleVi:"Thỏa thuận quy định cụ thể rằng tất cả giao hàng phải được thực hiện trước 5 giờ chiều các ngày trong tuần.",collocations:["clearly specify: chỉ rõ ràng","specify the terms: quy định điều khoản","specify requirements: nêu rõ yêu cầu"],synonyms:["state: nêu rõ","define: xác định","detail: chi tiết hóa"],distractors:["khái quát","bỏ sót","ước lượng"]}
 ];
 
-/* ═══════════════  HELPERS  ═══════════════ */
-function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
-function speak(t){if(!window.speechSynthesis)return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang="en-US";u.rate=0.85;window.speechSynthesis.speak(u);}
+/* ═══════════  UTILS  ═══════════ */
+function sh(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+function sp(t){if(!window.speechSynthesis)return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang="en-US";u.rate=0.85;window.speechSynthesis.speak(u);}
+function sw(id,b){document.querySelectorAll('.content').forEach(c=>c.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));document.getElementById('t-'+id).classList.add('active');b.classList.add('active');if(id==='learn')initL();if(id==='play')initP();}
+function esc(s){return s.replace(/'/g,"&#39;").replace(/"/g,"&quot;");}
 
-function switchTab(id, btn){
-  document.querySelectorAll('.content').forEach(c=>c.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById('tab-'+id).classList.add('active');
-  btn.classList.add('active');
-  if(id==='learn') initLearn();
-  if(id==='play') initPlay();
-}
-
-/* ═══════════════  TAB 1: XEM TỪ  ═══════════════ */
-(function renderWordList(){
-  const el=document.getElementById('tab-words');
-  el.innerHTML='<div class="wl-wrap"><div class="wl-title">Thuật ngữ trong học phần này ('+WORDS.length+')</div>'+
-  WORDS.map((w,i)=>`
-    <div class="wl-card" style="animation-delay:${i*0.03}s">
-      <div class="wl-head">
-        <div style="flex:1">
-          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-            <span class="wl-word">${w.word}</span>
-            <button class="wl-speak" onclick="speak('${w.word.replace(/'/g,"\\'")}')">🔊</button>
-            <span class="wl-pos">${w.pos}</span>
-          </div>
-          <div class="wl-ipa">UK: ${w.ipa_uk} | US: ${w.ipa_us}</div>
-        </div>
-        <span class="wl-vi">${w.vi}</span>
-      </div>
-      <div class="wl-sep"></div>
-      <div class="wl-ex"><b>VD: </b>${w.example}</div>
-      <div class="wl-ex-vi" style="margin-bottom:12px">(${w.exampleVi})</div>
-      <div class="wl-label">📖 Cụm từ</div>
-      <div class="wl-tags">${w.collocations.map(c=>'<span class="wl-col">'+c+'</span>').join('')}</div>
-      <div class="wl-label" style="color:#4B5563">≈ Đồng nghĩa</div>
-      <div class="wl-tags">${w.synonyms.map(s=>'<span class="wl-syn">'+s+'</span>').join('')}</div>
-    </div>
-  `).join('')+'</div>';
+/* ═══════════  TAB 1: XEM TỪ  ═══════════ */
+(function(){
+  document.getElementById('t-words').innerHTML='<div class="wl"><div class="wl-head">Thuật ngữ trong học phần này ('+W.length+')</div>'+W.map((w,i)=>
+    '<div class="wc" style="animation-delay:'+i*0.03+'s">'+
+      '<div class="wc-top"><div style="flex:1">'+
+        '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">'+
+          '<span class="wc-word">'+w.word+'</span>'+
+          '<button class="wc-spk" onclick="sp(\''+esc(w.word)+'\')">🔊</button>'+
+          '<span class="wc-pos">'+w.pos+'</span></div>'+
+        '<div class="wc-ipa">UK: '+w.ipa_uk+' | US: '+w.ipa_us+'</div></div>'+
+      '<span class="wc-vi">'+w.vi+'</span></div>'+
+      '<div class="wc-sep"></div>'+
+      '<div class="wc-ex"><b>VD: </b>'+w.example+'</div>'+
+      '<div class="wc-exvi">('+w.exampleVi+')</div>'+
+      '<div class="wc-label">📖 Cụm từ</div>'+
+      '<div class="wc-tags">'+w.collocations.map(c=>'<span class="wc-col">'+c+'</span>').join('')+'</div>'+
+      '<div class="wc-label">≈ Đồng nghĩa</div>'+
+      '<div class="wc-tags">'+w.synonyms.map(s=>'<span class="wc-syn">'+s+'</span>').join('')+'</div>'+
+    '</div>'
+  ).join('')+'</div>';
 })();
 
-/* ═══════════════  TAB 2: HỌC  ═══════════════ */
-let learnState={};
-function initLearn(){
-  const s=learnState={idx:0,order:shuffle(WORDS.map((_,i)=>i)),mode:'flashcard',flipped:false,qAns:null,qOpts:[],typV:'',typR:null,hint:false,pronR:null,lis:false,learned:{},done:false};
-  renderLearn();
+/* ═══════════  TAB 2: HỌC  ═══════════ */
+let L={};
+function initL(){L={i:0,ord:sh(W.map((_,i)=>i)),m:'flashcard',fl:false,qa:null,qo:[],tv:'',tr:null,h:false,pr:null,li:false,ld:{},dn:false};rL();}
+function gW(){return W[L.ord[L.i]];}
+function rL(){
+  const el=document.getElementById('t-learn'),w=gW(),T=W.length,s=L;
+  if(s.dn){el.innerHTML='<div style="padding:40px;text-align:center"><div style="font-size:56px;margin-bottom:10px">🎉</div><h2 style="font-size:22px;font-weight:800;margin-bottom:6px">Hoàn thành!</h2><p style="color:#64748B;margin-bottom:20px">Đã học xong '+T+' từ</p><button class="btn-p" onclick="initL()">Học lại</button></div>';return;}
+  const mi=['flashcard','quiz','typing','pronunciation','sr'].indexOf(s.m),lc=Object.keys(s.ld).length;
+  let h='<div class="learn-wrap"><div class="prog"><div class="prog-fill" style="width:'+(s.i/T*100)+'%"></div></div>';
+  h+='<div class="modes">'+[{k:'flashcard',l:'📇 Flashcard'},{k:'quiz',l:'📝 Trắc nghiệm'},{k:'typing',l:'⌨️ Gõ từ'},{k:'pronunciation',l:'🎙️ Phát âm'}].map((m,i)=>'<span class="mode-c'+(s.m===m.k||(s.m==='sr'&&m.k==='pronunciation')?' on':'')+'" style="opacity:'+(i<=mi?1:0.3)+'">'+m.l+'</span>').join('')+'</div><div class="card-area">';
+
+  if(s.m==='flashcard'){
+    if(!s.fl){h+='<div class="card" onclick="L.fl=true;rL()"><span class="chip">'+w.pos+'</span><h2 class="bw">'+w.word+'</h2><div class="ipa-r"><button onclick="event.stopPropagation();sp(\''+esc(w.word)+'\')">🔊</button><span>'+w.ipa_us+'</span></div><p style="color:#94A3B8;font-style:italic;font-size:13px">Nhấn để xem nghĩa</p></div>';}
+    else{h+='<div class="card" onclick="L.fl=false;rL()"><h2 class="bv">'+w.vi+'</h2><div class="ebox"><p class="en">"'+w.example+'"</p><p class="vi">('+w.exampleVi+')</p></div><div style="display:flex;flex-wrap:wrap;gap:5px;justify-content:center;margin-bottom:8px">'+w.collocations.map(c=>'<span class="wc-col">'+c+'</span>').join('')+'</div><div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:5px"><span style="font-size:11px;color:#94A3B8">≈</span>'+w.synonyms.map(x=>'<span class="wc-syn">'+x+'</span>').join('')+'</div></div><div class="ar"><button class="btn-s" onclick="L.fl=false;rL()">☑ Đã thuộc</button><button class="btn-p" onclick="adv()">Học tiếp →</button></div>';}
+  }
+  else if(s.m==='quiz'){
+    if(!s.qo.length){s.qo=sh([w.vi,...w.distractors]);s.qa=null;}
+    h+='<div class="card" style="cursor:default"><span class="chip">'+w.pos+'</span><h2 class="bw" style="font-size:30px">'+w.word+'</h2><div class="ipa-r"><button onclick="sp(\''+esc(w.word)+'\')">🔊</button><span>'+w.ipa_us+'</span></div>';
+    s.qo.forEach((o,i)=>{let c='qo';if(s.qa!==null){if(o===w.vi)c+=' ok';else if(o===s.qa)c+=' no';}h+='<button class="'+c+'" onclick="qA(\''+esc(o)+'\')"><span class="qn">'+(i+1)+'</span>'+o+'</button>';});
+    h+='</div>';if(s.qa)h+='<button class="btn-p" style="margin-top:12px;width:100%" onclick="adv()">Tiếp tục →</button>';
+  }
+  else if(s.m==='typing'){
+    const cls=s.tr==='correct'?'ok':s.tr==='wrong'?'bad':'';
+    h+='<div class="card" style="cursor:default"><span class="chip">'+w.pos+'</span><h2 class="bv" style="font-size:26px">'+w.vi+'</h2><input class="tinp '+cls+'" id="ti" placeholder="Gõ từ tiếng Anh..." value="'+esc(s.tv)+'" '+(s.tr?'disabled':'')+' oninput="L.tv=this.value" onkeydown="if(event.key===\'Enter\'&&!L.tr)cT()"><div style="display:flex;align-items:center;gap:10px;margin-top:12px"><button class="hbtn" onclick="L.h=true;rL()">💡</button><button class="btn-p" style="flex:1" onclick="cT()" '+(s.tr?'disabled':'')+'>Kiểm tra</button></div>';
+    if(s.h&&!s.tr)h+='<p style="color:#F59E0B;font-size:13px;margin-top:8px;font-weight:600">Gợi ý: '+w.word.slice(0,Math.ceil(w.word.length/3))+'...</p>';
+    if(s.tr==='wrong')h+='<p style="color:#EF4444;margin-top:8px;font-size:14px">Đáp án: <strong>'+w.word+'</strong></p>';
+    h+='</div>';if(s.tr)h+='<button class="btn-p" style="margin-top:12px;width:100%" onclick="adv()">Tiếp tục →</button>';
+  }
+  else if(s.m==='pronunciation'){
+    h+='<div class="card" style="cursor:default"><p style="font-size:11px;font-weight:700;color:#94A3B8;letter-spacing:1.5px;text-transform:uppercase">PHÁT ÂM TỪ NÀY</p><h2 class="bv" style="font-size:26px">'+w.vi+'</h2><p style="font-size:18px;color:#64748B;margin-bottom:18px">'+w.word+'</p><button class="mic'+(s.li?' on':'')+'" onclick="sMic()">🎙️</button><p style="color:#94A3B8;font-size:13px;margin-top:8px">'+(s.li?'Đang nghe...':'Nhấn để nói')+'</p>';
+    if(s.pr){const sc=s.pr.score,co=sc>=70?'#22C55E':sc>=40?'#F59E0B':'#EF4444';h+='<div style="margin-top:16px;padding:12px;background:#F8FAFC;border-radius:12px;border:1px solid #F1F5F9"><p style="font-size:13px;color:#475569;margin-bottom:8px">Bạn nói: "'+s.pr.text+'"</p><div class="sbar"><div class="sfill" style="width:'+sc+'%;background:'+co+'"></div></div><p style="font-size:20px;font-weight:800;color:#0F172A;margin-top:8px">'+sc+'%</p></div>';}
+    h+='</div><div style="display:flex;gap:10px;margin-top:12px"><button style="flex:0.6;padding:12px;font-size:13px;font-weight:600;color:#94A3B8;background:#fff;border:1.5px solid #E2E8F0;border-radius:14px;text-align:center" onclick="adv()">⏭ Bỏ qua</button>';
+    if(s.pr)h+='<button class="btn-p" onclick="adv()">Tiếp tục →</button>';h+='</div>';
+  }
+  else if(s.m==='sr'){
+    h+='<div class="card" style="cursor:default"><h2 class="bv" style="font-size:26px">'+w.vi+'</h2><div class="ebox"><p class="en">"'+w.example+'"</p><p class="vi">('+w.exampleVi+')</p></div><div style="display:flex;flex-wrap:wrap;gap:5px;justify-content:center;margin-bottom:8px">'+w.collocations.map(c=>'<span class="wc-col">'+c+'</span>').join('')+'</div><p style="color:#94A3B8;font-size:12px;margin-top:10px;font-style:italic">Bạn nhớ từ này ở mức nào?</p></div>';
+    h+='<div class="sr-r">'+[{l:'Học lại',s:'1m',c:'#EF4444'},{l:'Khó',s:'6h',c:'#F59E0B'},{l:'Tốt',s:'1d',c:'#22C55E'},{l:'Dễ',s:'3d',c:'#3B82F6'}].map((r,i)=>'<button class="sr-b" style="background:'+r.c+'" onclick="hSR('+i+')"><span>'+r.l+'</span><span>'+r.s+'</span></button>').join('')+'</div>';
+  }
+  h+='</div><div class="bstats"><span style="color:var(--ac);font-weight:700">'+(T-lc)+'</span> Từ mới  <span style="color:#22C55E;font-weight:700;margin-left:10px">'+lc+'</span> Đã học  <span style="margin-left:10px">'+(s.i+1)+'/'+T+'</span></div></div>';
+  el.innerHTML=h;if(s.m==='typing'&&!s.tr){const inp=document.getElementById('ti');if(inp){inp.focus();inp.setSelectionRange(inp.value.length,inp.value.length);}}
 }
-function getWord(){return WORDS[learnState.order[learnState.idx]];}
-function renderLearn(){
-  const s=learnState, el=document.getElementById('tab-learn'), w=getWord(), total=WORDS.length;
-  if(s.done){el.innerHTML=`<div style="padding:40px;text-align:center"><div style="font-size:56px;margin-bottom:10px">🎉</div><h2 style="font-size:22px;font-weight:800;margin-bottom:6px">Hoàn thành!</h2><p style="color:#64748B;margin-bottom:20px">Đã học xong ${total} từ</p><button class="btn-primary" onclick="initLearn()">Học lại</button></div>`;return;}
-  const mi=['flashcard','quiz','typing','pronunciation','sr'].indexOf(s.mode);
-  const lc=Object.keys(s.learned).length;
-  const progress=(s.idx/total)*100;
-  const modes=[{k:'flashcard',l:'📇 Flashcard'},{k:'quiz',l:'📝 Trắc nghiệm'},{k:'typing',l:'⌨️ Gõ từ'},{k:'pronunciation',l:'🎙️ Phát âm'}];
-
-  let html=`<div class="progress-bar"><div class="progress-fill" style="width:${progress}%"></div></div>`;
-  html+=`<div class="mode-chips">${modes.map((m,i)=>`<span class="mode-chip ${s.mode===m.k||(s.mode==='sr'&&m.k==='pronunciation')?'active':''}" style="opacity:${i<=mi?1:0.3}">${m.l}</span>`).join('')}</div>`;
-  html+=`<div style="padding:0 14px">`;
-
-  if(s.mode==='flashcard'){
-    if(!s.flipped){
-      html+=`<div class="card" onclick="learnState.flipped=true;renderLearn()"><span class="chip">${w.pos}</span><h2 class="big-word">${w.word}</h2><div class="ipa-row"><button onclick="event.stopPropagation();speak('${w.word.replace(/'/g,"\\'")}')">🔊</button><span>${w.ipa_us}</span></div><p style="color:#334155;font-style:italic;font-size:13px">Nhấn để xem nghĩa</p></div>`;
-    } else {
-      html+=`<div class="card" onclick="learnState.flipped=false;renderLearn()"><h2 class="big-vi">${w.vi}</h2><div class="ex-box"><p class="en">"${w.example}"</p><p class="vi">(${w.exampleVi})</p></div><div class="tag-row">${w.collocations.map(c=>'<span class="wl-col">'+c+'</span>').join('')}</div><div class="syn-row"><span style="font-size:11px;color:#4B5563">≈</span>${w.synonyms.map(x=>'<span class="wl-syn">'+x+'</span>').join('')}</div></div>`;
-      html+=`<div class="action-row"><button class="btn-second" onclick="learnState.flipped=false;renderLearn()">☑ Đã thuộc</button><button class="btn-primary" onclick="advanceMode()">Học tiếp →</button></div>`;
-    }
-  }
-  else if(s.mode==='quiz'){
-    if(s.qOpts.length===0){s.qOpts=shuffle([w.vi,...w.distractors]);s.qAns=null;}
-    html+=`<div class="card"><span class="chip">${w.pos}</span><h2 class="big-word" style="font-size:30px">${w.word}</h2><div class="ipa-row"><button onclick="speak('${w.word.replace(/'/g,"\\'")}')">🔊</button><span>${w.ipa_us}</span></div>`;
-    s.qOpts.forEach((o,i)=>{
-      let cls='quiz-opt';
-      if(s.qAns!==null){if(o===w.vi)cls+=' correct';else if(o===s.qAns)cls+=' wrong';}
-      html+=`<button class="${cls}" onclick="quizAnswer('${o.replace(/'/g,"\\'")}')">`+
-        `<span class="opt-num">${i+1}</span>${o}</button>`;
-    });
-    html+=`</div>`;
-    if(s.qAns)html+=`<button class="btn-primary" style="margin-top:12px;width:100%" onclick="advanceMode()">Tiếp tục →</button>`;
-  }
-  else if(s.mode==='typing'){
-    const bc=s.typR==='correct'?'#22C55E':s.typR==='wrong'?'#EF4444':'var(--accent)';
-    const cls=s.typR==='correct'?'ok':s.typR==='wrong'?'bad':'';
-    html+=`<div class="card"><span class="chip">${w.pos}</span><h2 class="big-vi" style="font-size:26px">${w.vi}</h2>
-      <input class="typ-input ${cls}" style="border-color:${bc}" id="typInput" placeholder="Gõ từ tiếng Anh..." value="${s.typV}" ${s.typR?'disabled':''} oninput="learnState.typV=this.value" onkeydown="if(event.key==='Enter'&&!learnState.typR)checkTyping()">
-      <div style="display:flex;align-items:center;gap:10px;margin-top:12px"><button class="hint-btn" onclick="learnState.hint=true;renderLearn()">💡</button><button class="btn-primary" style="flex:1" onclick="checkTyping()" ${s.typR?'disabled':''}>Kiểm tra</button></div>`;
-    if(s.hint&&!s.typR)html+=`<p style="color:#F59E0B;font-size:13px;margin-top:8px;font-weight:600">Gợi ý: ${w.word.slice(0,Math.ceil(w.word.length/3))}...</p>`;
-    if(s.typR==='wrong')html+=`<p style="color:#FCA5A5;margin-top:8px;font-size:14px">Đáp án: <strong>${w.word}</strong></p>`;
-    html+=`</div>`;
-    if(s.typR)html+=`<button class="btn-primary" style="margin-top:12px;width:100%" onclick="advanceMode()">Tiếp tục →</button>`;
-  }
-  else if(s.mode==='pronunciation'){
-    html+=`<div class="card"><p style="font-size:11px;font-weight:700;color:#475569;letter-spacing:1.5px;text-transform:uppercase">PHÁT ÂM TỪ NÀY</p><h2 class="big-vi" style="font-size:26px">${w.vi}</h2><p style="font-size:17px;color:#64748B;margin-bottom:18px">${w.word}</p>
-      <button class="mic-btn ${s.lis?'on':''}" onclick="startMic()">🎙️</button><p style="color:#475569;font-size:13px;margin-top:8px">${s.lis?'Đang nghe...':'Nhấn để nói'}</p>`;
-    if(s.pronR){
-      const sc=s.pronR.score,col=sc>=70?'#22C55E':sc>=40?'#F59E0B':'#EF4444';
-      html+=`<div style="margin-top:16px;padding:12px;background:#0B0F1A;border-radius:12px"><p style="font-size:13px;color:#CBD5E1;margin-bottom:8px">Bạn nói: "${s.pronR.text}"</p><div class="score-bar"><div class="score-fill" style="width:${sc}%;background:${col}"></div></div><p style="font-size:20px;font-weight:800;margin-top:8px">${sc}%</p></div>`;
-    }
-    html+=`</div><div style="display:flex;gap:10px;margin-top:12px"><button style="flex:0.6;padding:11px;font-size:13px;font-weight:600;color:#475569;background:#151A2D;border:1.5px solid #1E2640;border-radius:14px;text-align:center" onclick="advanceMode()">⏭ Bỏ qua</button>`;
-    if(s.pronR)html+=`<button class="btn-primary" onclick="advanceMode()">Tiếp tục →</button>`;
-    html+=`</div>`;
-  }
-  else if(s.mode==='sr'){
-    html+=`<div class="card"><h2 class="big-vi" style="font-size:26px">${w.vi}</h2><div class="ex-box"><p class="en">"${w.example}"</p><p class="vi">(${w.exampleVi})</p></div><div class="tag-row">${w.collocations.map(c=>'<span class="wl-col">'+c+'</span>').join('')}</div><p style="color:#475569;font-size:12px;margin-top:10px;font-style:italic">Bạn nhớ từ này ở mức nào?</p></div>`;
-    html+=`<div class="sr-row">`;
-    [{l:'Học lại',s:'1m',c:'#EF4444'},{l:'Khó',s:'6h',c:'#F59E0B'},{l:'Tốt',s:'1d',c:'#22C55E'},{l:'Dễ',s:'3d',c:'#3B82F6'}].forEach((r,i)=>{
-      html+=`<button class="sr-btn" style="background:${r.c}" onclick="handleSR(${i})"><span>${r.l}</span><span>${r.s}</span></button>`;
-    });
-    html+=`</div>`;
-  }
-
-  html+=`</div>`;
-  html+=`<div class="bottom-stats"><span style="color:var(--accent);font-weight:700">${total-lc}</span> Từ mới  <span style="color:#4ADE80;font-weight:700;margin-left:10px">${lc}</span> Đã học  <span style="margin-left:10px">${s.idx+1}/${total}</span></div>`;
-  el.innerHTML=html;
-  if(s.mode==='typing'&&!s.typR){const inp=document.getElementById('typInput');if(inp)inp.focus();}
+function adv(){const s=L;if(s.m==='flashcard'){s.m='quiz';s.qo=[];s.qa=null;}else if(s.m==='quiz'){s.m='typing';s.tv='';s.tr=null;s.h=false;}else if(s.m==='typing'){s.m='pronunciation';s.pr=null;}else if(s.m==='pronunciation')s.m='sr';rL();}
+function nxW(){const s=L;if(s.i<W.length-1){s.i++;s.m='flashcard';s.fl=false;s.qa=null;s.qo=[];s.tv='';s.tr=null;s.h=false;s.pr=null;rL();}else{s.dn=true;rL();}}
+function qA(a){if(L.qa)return;L.qa=a;rL();}
+function cT(){const w=gW();L.tr=L.tv.toLowerCase().trim()===w.word.toLowerCase().trim()?'correct':'wrong';rL();}
+function hSR(v){L.ld[gW().id]=v;setTimeout(nxW,350);}
+function sMic(){
+  const S=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!S){L.pr={text:'Trình duyệt không hỗ trợ',score:0};rL();return;}
+  const r=new S();r.lang='en-US';r.continuous=false;r.interimResults=false;
+  r.onstart=()=>{L.li=true;rL();};r.onend=()=>{L.li=false;rL();};
+  r.onresult=(e)=>{const t=e.results[0][0].transcript.toLowerCase().trim(),g=gW().word.toLowerCase(),cf=e.results[0][0].confidence;let s=0;if(t===g)s=100;else if(t.includes(g)||g.includes(t))s=70;else{const l=Math.max(t.length,g.length);let m=0;for(let i=0;i<Math.min(t.length,g.length);i++)if(t[i]===g[i])m++;s=Math.round((m/l)*100);}s=Math.min(100,Math.round(s*(0.5+cf*0.5)));L.pr={text:t,score:s};rL();};
+  r.onerror=()=>{L.li=false;L.pr={text:'Không nhận diện được',score:0};rL();};r.start();
 }
 
-function advanceMode(){
-  const s=learnState;
-  if(s.mode==='flashcard'){s.mode='quiz';s.qOpts=[];s.qAns=null;}
-  else if(s.mode==='quiz'){s.mode='typing';s.typV='';s.typR=null;s.hint=false;}
-  else if(s.mode==='typing'){s.mode='pronunciation';s.pronR=null;}
-  else if(s.mode==='pronunciation')s.mode='sr';
-  renderLearn();
-}
-function nextWord(){
-  const s=learnState;
-  if(s.idx<WORDS.length-1){s.idx++;s.mode='flashcard';s.flipped=false;s.qAns=null;s.qOpts=[];s.typV='';s.typR=null;s.hint=false;s.pronR=null;renderLearn();}
-  else{s.done=true;renderLearn();}
-}
-function quizAnswer(ans){if(learnState.qAns)return;learnState.qAns=ans;renderLearn();}
-function checkTyping(){const w=getWord();learnState.typR=learnState.typV.toLowerCase().trim()===w.word.toLowerCase().trim()?'correct':'wrong';renderLearn();}
-function handleSR(lvl){learnState.learned[getWord().id]=lvl;setTimeout(nextWord,400);}
-function startMic(){
-  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  if(!SR){learnState.pronR={text:'Trình duyệt không hỗ trợ',score:0};renderLearn();return;}
-  const r=new SR();r.lang='en-US';r.continuous=false;r.interimResults=false;
-  r.onstart=()=>{learnState.lis=true;renderLearn();};
-  r.onend=()=>{learnState.lis=false;renderLearn();};
-  r.onresult=(ev)=>{
-    const t=ev.results[0][0].transcript.toLowerCase().trim(),tgt=getWord().word.toLowerCase(),cf=ev.results[0][0].confidence;
-    let sc=0;if(t===tgt)sc=100;else if(t.includes(tgt)||tgt.includes(t))sc=70;
-    else{const len=Math.max(t.length,tgt.length);let m=0;for(let i=0;i<Math.min(t.length,tgt.length);i++)if(t[i]===tgt[i])m++;sc=Math.round((m/len)*100);}
-    sc=Math.min(100,Math.round(sc*(0.5+cf*0.5)));
-    learnState.pronR={text:t,score:sc};renderLearn();
-  };
-  r.onerror=()=>{learnState.lis=false;learnState.pronR={text:'Không nhận diện được',score:0};renderLearn();};
-  r.start();
-}
-
-/* ═══════════════  TAB 3: CHƠI  ═══════════════ */
-let gameState={st:'idle'};
-function initPlay(){gameState={st:'idle'};renderPlay();}
-function renderPlay(){
-  const g=gameState,el=document.getElementById('tab-play');
-  if(g.st==='idle'){
-    el.innerHTML=`<div style="padding:40px;text-align:center"><div style="font-size:56px;margin-bottom:12px">🎯</div><h3 style="font-size:20px;font-weight:800;margin-bottom:6px">Word Match</h3><p style="color:#64748B;margin-bottom:22px;line-height:1.6">Nối từ tiếng Anh với nghĩa tiếng Việt.<br>Nhanh và chính xác!</p><button class="btn-primary" onclick="startGame()">Bắt đầu chơi</button></div>`;
-    return;
-  }
-  if(g.st==='finished'){
-    const fmt=s=>`${Math.floor(s/60)}:${(s%60).toString().padStart(2,'0')}`;
-    el.innerHTML=`<div style="padding:40px;text-align:center"><div style="font-size:56px;margin-bottom:10px">🏆</div><h3 style="font-size:22px;font-weight:800;margin-bottom:6px">Xuất sắc!</h3><p style="color:#64748B;margin-bottom:4px">Hoàn thành trong <strong style="color:#F1F5F9">${fmt(g.timer)}</strong></p><p style="color:var(--accent);font-size:26px;font-weight:800;margin-bottom:22px">⚡ ${g.score} pts</p><button class="btn-primary" onclick="startGame()">Chơi lại</button></div>`;
-    return;
-  }
-  const fmt=s=>`${Math.floor(s/60)}:${(s%60).toString().padStart(2,'0')}`;
-  let html=`<div style="padding:14px 14px 24px"><div class="game-header"><span class="game-stat" style="background:#F59E0B22;color:#FBBF24">✨ ${g.matched.size}/${g.pairs}</span><span class="game-stat" style="background:color-mix(in srgb,var(--accent) 15%,transparent);color:var(--accent)">⚡ ${g.score} pts</span><span class="game-stat" style="background:#1E293B;color:#64748B">⏱ ${fmt(g.timer)}</span></div><div class="match-grid">`;
-  g.cards.forEach(cd=>{
-    const m=g.matched.has(cd.wid),s=g.sel&&g.sel.id===cd.id,wr=g.wp&&g.wp.includes(cd.id),en=cd.lang==='en';
-    let bg=en?'var(--accent)':'color-mix(in srgb,var(--accent) 20%,transparent)';
-    let cl=en?'#fff':'var(--accent)';let bd='2.5px solid transparent';let extra='';
-    if(m){bg='#1E2640';cl='#334155';bd='2.5px solid #1E2640';extra='matched';}
-    else if(s){bd='2.5px solid var(--accent)';}
-    else if(wr){bg='rgba(127,29,29,0.25)';cl='#FCA5A5';bd='2.5px solid #EF4444';extra='wrong-pair';}
-    html+=`<button class="match-card ${extra}" style="background:${bg};color:${cl};border:${bd};font-size:${en?13:12}px;font-weight:${en?700:600}" onclick="pickCard('${cd.id}')" ${m?'disabled':''}>${cd.text}</button>`;
+/* ═══════════  TAB 3: CHƠI  ═══════════ */
+let G={s:'idle'};
+function initP(){G={s:'idle'};rP();}
+function rP(){
+  const g=G,el=document.getElementById('t-play'),fm=s=>`${Math.floor(s/60)}:${(s%60).toString().padStart(2,'0')}`;
+  if(g.s==='idle'){el.innerHTML='<div style="padding:40px;text-align:center"><div style="font-size:56px;margin-bottom:12px">🎯</div><h3 style="font-size:20px;font-weight:800;margin-bottom:6px">Word Match</h3><p style="color:#64748B;margin-bottom:22px;line-height:1.6">Nối từ tiếng Anh với nghĩa tiếng Việt.<br>Nhanh và chính xác!</p><button class="btn-p" onclick="sG()">Bắt đầu chơi</button></div>';return;}
+  if(g.s==='done'){el.innerHTML='<div style="padding:40px;text-align:center"><div style="font-size:56px;margin-bottom:10px">🏆</div><h3 style="font-size:22px;font-weight:800;margin-bottom:6px">Xuất sắc!</h3><p style="color:#64748B;margin-bottom:4px">Hoàn thành trong <strong style="color:#0F172A">'+fm(g.t)+'</strong></p><p style="color:var(--ac);font-size:26px;font-weight:800;margin-bottom:22px">⚡ '+g.sc+' pts</p><button class="btn-p" onclick="sG()">Chơi lại</button></div>';return;}
+  let h='<div style="padding:14px 14px 24px"><div class="gh"><span class="gs" style="background:#FEF3C7;color:#D97706">✨ '+g.ma.size+'/'+g.p+'</span><span class="gs" style="background:color-mix(in srgb,var(--ac) 10%,#fff);color:var(--ac)">⚡ '+g.sc+' pts</span><span class="gs" style="background:#F1F5F9;color:#64748B">⏱ '+fm(g.t)+'</span></div><div class="mgrid">';
+  g.c.forEach(cd=>{
+    const m=g.ma.has(cd.wid),sl=g.sel&&g.sel.id===cd.id,wr=g.wp&&g.wp.includes(cd.id),en=cd.lang==='en';
+    let bg=en?'var(--ac)':'color-mix(in srgb,var(--ac) 12%,#fff)',cl=en?'#fff':'var(--ac)',bd='2.5px solid transparent',ex='';
+    if(m){bg='#F1F5F9';cl='#CBD5E1';bd='2.5px solid #E8ECF2';ex=' done';}
+    else if(sl){bd='2.5px solid var(--ac)';bg=en?'var(--ac)':'#fff';}
+    else if(wr){bg='#FEF2F2';cl='#EF4444';bd='2.5px solid #EF4444';ex=' wpair';}
+    h+='<button class="mc'+ex+'" style="background:'+bg+';color:'+cl+';border:'+bd+';font-size:'+(en?14:13)+'px;font-weight:'+(en?700:600)+'" onclick="pC(\''+cd.id+'\')" '+(m?'disabled':'')+'>'+cd.text+'</button>';
   });
-  html+=`</div></div>`;
-  el.innerHTML=html;
+  h+='</div></div>';el.innerHTML=h;
 }
-function startGame(){
-  const sub=shuffle(WORDS).slice(0,6);
-  const cards=shuffle([...sub.map(w=>({id:'en-'+w.id,wid:w.id,text:w.word,lang:'en'})),...sub.map(w=>({id:'vi-'+w.id,wid:w.id,text:w.vi,lang:'vi'}))]);
-  gameState={st:'playing',cards,sel:null,matched:new Set(),wp:null,score:0,timer:0,pairs:sub.length};
-  if(gameState.interval)clearInterval(gameState.interval);
-  gameState.interval=setInterval(()=>{gameState.timer++;renderPlay();},1000);
-  renderPlay();
+function sG(){
+  const sub=sh(W).slice(0,6);
+  G={s:'play',c:sh([...sub.map(w=>({id:'e'+w.id,wid:w.id,text:w.word,lang:'en'})),...sub.map(w=>({id:'v'+w.id,wid:w.id,text:w.vi,lang:'vi'}))]),sel:null,ma:new Set(),wp:null,sc:0,t:0,p:sub.length};
+  if(G.iv)clearInterval(G.iv);G.iv=setInterval(()=>{G.t++;rP();},1000);rP();
 }
-function pickCard(id){
-  const g=gameState;if(g.wp)return;
-  const cd=g.cards.find(c=>c.id===id);if(!cd||g.matched.has(cd.wid))return;
-  if(!g.sel){g.sel=cd;renderPlay();return;}
-  if(g.sel.id===cd.id){g.sel=null;renderPlay();return;}
-  if(g.sel.wid===cd.wid&&g.sel.lang!==cd.lang){
-    g.matched.add(cd.wid);g.score+=10;g.sel=null;
-    if(g.matched.size===g.pairs){clearInterval(g.interval);g.st='finished';}
-    renderPlay();
-  } else {
-    g.wp=[g.sel.id,cd.id];renderPlay();
-    setTimeout(()=>{g.wp=null;g.sel=null;renderPlay();},600);
-  }
+function pC(id){
+  const g=G;if(g.wp)return;const cd=g.c.find(c=>c.id===id);if(!cd||g.ma.has(cd.wid))return;
+  if(!g.sel){g.sel=cd;rP();return;}if(g.sel.id===cd.id){g.sel=null;rP();return;}
+  if(g.sel.wid===cd.wid&&g.sel.lang!==cd.lang){g.ma.add(cd.wid);g.sc+=10;g.sel=null;if(g.ma.size===g.p){clearInterval(g.iv);g.s='done';}rP();}
+  else{g.wp=[g.sel.id,cd.id];rP();setTimeout(()=>{g.wp=null;g.sel=null;rP();},600);}
 }
 </script>
 </body>
